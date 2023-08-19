@@ -1,5 +1,6 @@
 import { useForm } from "react-hook-form";
 import axios from 'axios';
+import Swal from 'sweetalert2'
 const NewUser =()=>{
     const {register, handleSubmit, formState: {errors}}=useForm();
     const onSubmit = async(data) => {
@@ -14,9 +15,18 @@ const NewUser =()=>{
       try { 
     /* reemplazar por api */
       const respuesta = await axios.post('http://jsonplaceholder.org/posts', da);
-      
+      Swal.fire(
+        'Formulario enviado',
+        `Hola ${data.text}, tu formulario ha sido enviado exitosamente!`,
+        'success'
+      );
       console.log(respuesta)
       }catch (error) {
+        Swal.fire(
+    'Error',
+    'Hubo un error al enviar el formulario. Por favor, inténtalo de nuevo.',
+    'error'
+  );
         console.error(error);
       }
     }
@@ -93,6 +103,18 @@ const NewUser =()=>{
             )}
           />
           <p className="text-red-500">{errors.text4?.message}</p>
+          </div>
+          <div className='col-span-2 row-span-1'>
+          <label className="flex flex-row justify-start pt-4 text-sm font-medium leading-6 text-gray-500"> Saldo inicial</label>
+          <input
+            type='text'
+            placeholder="saldo"
+            className="block w-full px-3 py-2 mt-1 text-sm bg-white border rounded-md shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
+            {...register(
+              'text5',{required: "Este campo es obligatorio",}
+            )}
+          />
+          <p className="text-red-500">{errors.text5?.message}</p>
           </div>
           <div className="flex flex-row justify-end col-span-2">
           <button className="px-5 py-3 m-4 bg-blue-600 rounded-3xl" type='submit'>Enviar</button>
