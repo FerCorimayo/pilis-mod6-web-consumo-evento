@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 import axios from 'axios';
 import Swal from 'sweetalert2'
+//agregar prompt
 const NewUser =()=>{
     const {register, handleSubmit, formState: {errors}}=useForm();
     const onSubmit = async(data) => {
@@ -13,8 +14,19 @@ const NewUser =()=>{
     contrasenia: data.text4
     }
       try { 
-    /* reemplazar por api */
-      const respuesta = await axios.post('http://jsonplaceholder.org/posts', da);
+    /* reemplazar por post api 
+      const respuesta = await axios({
+      method: 'post',
+      url: 'url',
+      data: da,
+      headers: {
+        //pasar por prompt "mitoken"
+        'Authorization': `Bearer ${miToken}`
+      }
+    });
+    */
+    const respuesta = await axios.post('http://jsonplaceholder.org/posts', da);
+      
       Swal.fire(
         'Formulario enviado',
         `Hola ${data.text}, tu formulario ha sido enviado exitosamente!`,
