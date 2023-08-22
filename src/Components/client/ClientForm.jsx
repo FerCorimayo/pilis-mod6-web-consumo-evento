@@ -1,8 +1,8 @@
 import { useForm } from "react-hook-form";
 import axios from 'axios';
 import Swal from 'sweetalert2'
-//agregar prompt
-const NewUser =()=>{
+
+const ClientForm = () => {
     const {register, handleSubmit, formState: {errors}}=useForm();
     const onSubmit = async(data) => {
     
@@ -138,4 +138,5 @@ const NewUser =()=>{
         </>
     )
 }
-export default NewUser;
+
+export default ClientForm
