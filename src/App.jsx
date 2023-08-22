@@ -1,11 +1,8 @@
-import Login from './Components/Login/Login'
+import { AppRouter } from './routers/AppRouter'
 
 function App() {
-
   return (
-    <div>
-      {/* <Login /> */}
-    </div>
+    <AppRouter />
   )
 }
 
