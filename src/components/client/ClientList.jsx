@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import { FaEye, FaTrash, FaEdit } from 'react-icons/fa';
 const exampleData = [
-  { iD: 2, name: 'susan', dni: 20399451, email: 'lindsaywalton@example.com',saldo:300000},
+  { id: 2, name: 'susan', dni: 20399451, email: 'lindsaywalton@example.com',saldo:300000},
   { id: 1, name: 'robin', dni: 50391345, email: 'courtneyhenry@example.com',saldo:400000},
 
 ]
@@ -35,15 +35,17 @@ const ClientList = () => {
   }, [searchTerm]);
 
   return (
-    <div className='max-w-full mx-auto'>
-      <div className="flex justify-between">
+  <div className="h-screen w-screen bg-gray-300">
+    <div className='max-w-full mx-7 my-7 bg-white'>
+      <section className="flex justify-between">
       <input type="text" placeholder="Buscar" value={searchTerm} onChange={handleChange}
-      className="flex-shrink-0 my-7 mx-7 p-1 text-sm bg-white border rounded-3xl shadow-sm border-slate-400 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"/>
+      className="text-lg self-start flex-shrink-0 my-6 mx-7 px-4 py-1 bg-white border rounded-3xl shadow-sm border-slate-400 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"/>
       
       <Link to="/clientes">
       <button className="px-5 py-3 m-5 bg-blue-600 rounded-3xl text-white">Nuevo Cliente</button>
       </Link>
-      </div>
+      </section>
+  <section className='m-8'>
   <table className="w-full ">
     <thead>
       <tr>
@@ -76,6 +78,8 @@ const ClientList = () => {
       ))}
     </tbody>
   </table>
+  </section>
+</div>
 </div>
   )
 }
