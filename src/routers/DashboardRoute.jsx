@@ -4,18 +4,16 @@ import ClientList from '../components/client/ClientList';
 import SellerList from '../components/seller/SellerList';
 import ClientForm from '../components/client/ClientForm';
 
-const DashboardRouter = () => {
+export const DashboardRoute = () => {
   return (
     <>
         <Navbar />
         <div>
             <Routes>
-                <Route path="clientes" element={<ClientForm />} />
                 <Route path="vendedores" element={<SellerList />} />
+                <Route path="clientes" element={<ClientForm />} />
             </Routes>
         </div>
     </>
   )
 }
-
-export default DashboardRouter

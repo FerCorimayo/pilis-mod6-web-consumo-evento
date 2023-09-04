@@ -1,8 +1,8 @@
-import { AppRouter } from './routers/AppRouter'
+import { AppRoute } from './routers/AppRoute'
 
 function App() {
   return (
-    <AppRouter />
+    <AppRoute />
   )
 }
 
