@@ -2,16 +2,21 @@ import React, { useEffect, useState } from 'react'
 import { HiOutlineSearch, HiEye, HiPencil } from 'react-icons/hi';
 import { FaTrash } from 'react-icons/fa'
 import { listSeller } from '../../helpers/seller'
+import { NavLink } from 'react-router-dom';
 
 const SellerList = () => {
 
   const [sellers, setSellers] = useState([]);
 
-  // useEffect(() => {
-  //   listSeller.then(res => setSellers(res.data)).catch(err => console.log(err));
-  // }, []);
-  
-  console.log(sellers);
+  useEffect(() => {
+    listSeller()
+      .then((usersSellers) => {
+        setSellers(usersSellers)
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+  }, []);
 
   return (
     <div className="h-screen p-4 bg-white rounded-2xl">
@@ -28,7 +33,10 @@ const SellerList = () => {
             />
           </div>
         </form>
-        <button className="bg-[#007abe] hover:bg-[#005b8e] font-medium text-white px-8 py-2 rounded-full block">Nuevo Vendedor</button>
+        <NavLink to="/vendedores/nuevo" >
+            <button className="bg-[#007abe] hover:bg-[#005b8e] font-medium text-white px-8 py-2 rounded-full block">Nuevo Vendedor</button>
+            <h1>asd</h1>
+        </NavLink>
       </div>
       <div className="table w-full p-2 mt-10">
         <div className="table-header-group">
@@ -42,27 +50,13 @@ const SellerList = () => {
           </div>
         </div>
         <div className="table-row-group">
-          <div className="table-row">
-            <div className="table-cell pt-3 pb-3 font-semibold text-center border-b-2 border-gray-500 border-solid text-md text-zinc-400">1</div>
-            <div className="table-cell pt-3 pb-3 font-semibold text-center border-b-2 border-gray-500 border-solid text-md text-zinc-400">2</div>
-            <div className="table-cell pt-3 pb-3 font-semibold text-center border-b-2 border-gray-500 border-solid text-md text-zinc-400">NOA Accesorios</div>
-            <div className="table-cell pt-3 pb-3 font-semibold text-center border-b-2 border-gray-500 border-solid text-md text-zinc-400">Accesorios</div>
-            <div className="table-cell pt-3 pb-3 font-semibold text-center border-b-2 border-gray-500 border-solid text-md text-zinc-400">Fabian Choque</div>
-            <div className="flex justify-end pt-3 pb-5 pr-3 border-b-2 border-gray-500 border-solid place-items-center">
-              <HiEye className="w-6 h-auto mx-1" />
-              <HiPencil className="w-6 h-auto mx-1" />
-              <FaTrash className="w-6 h-auto ml-1" />
-            </div>
-          </div>
-        </div>
-        <div className="table-row-group">
           {sellers.map((seller) => (
             <div className="table-row">
               <div className="table-cell pt-3 pb-3 font-semibold text-center border-b-2 border-gray-500 border-solid text-md text-zinc-400">{seller.id}</div>
-              <div className="table-cell pt-3 pb-3 font-semibold text-center border-b-2 border-gray-500 border-solid text-md text-zinc-400">{seller.email}</div>
-              <div className="table-cell pt-3 pb-3 font-semibold text-center border-b-2 border-gray-500 border-solid text-md text-zinc-400">{seller.first_name}</div>
-              <div className="table-cell pt-3 pb-3 font-semibold text-center border-b-2 border-gray-500 border-solid text-md text-zinc-400">{seller.last_name}</div>
-              <div className="table-cell pt-3 pb-3 font-semibold text-center border-b-2 border-gray-500 border-solid text-md text-zinc-400">{seller.avatar}</div>
+              <div className="table-cell pt-3 pb-3 font-semibold text-center border-b-2 border-gray-500 border-solid text-md text-zinc-400">{seller.location}</div>
+              <div className="table-cell pt-3 pb-3 font-semibold text-center border-b-2 border-gray-500 border-solid text-md text-zinc-400">{seller.name}</div>
+              <div className="table-cell pt-3 pb-3 font-semibold text-center border-b-2 border-gray-500 border-solid text-md text-zinc-400">{seller.type}</div>
+              <div className="table-cell pt-3 pb-3 font-semibold text-center border-b-2 border-gray-500 border-solid text-md text-zinc-400">{seller.user.fullname}</div>
               <div className="flex justify-end pt-3 pb-5 mr-3 border-b-2 border-gray-500 border-solid">
                 <HiEye className="w-5 h-auto mx-1 text-emerald-500" />
                 <HiPencil className="w-5 h-auto mx-1 text-sky-500" />
