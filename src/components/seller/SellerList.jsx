@@ -67,6 +67,6 @@ const SellerList = () => {
       </div>
     </div>
   )
-}
+};
 
-export default SellerList
+export default SellerList;
