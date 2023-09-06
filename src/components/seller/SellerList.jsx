@@ -35,7 +35,6 @@ const SellerList = () => {
         </form>
         <NavLink to="/vendedores/nuevo" >
             <button className="bg-[#007abe] hover:bg-[#005b8e] font-medium text-white px-8 py-2 rounded-full block">Nuevo Vendedor</button>
-            <h1>asd</h1>
         </NavLink>
       </div>
       <div className="table w-full p-2 mt-10">
