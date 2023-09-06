@@ -7,10 +7,14 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+# Módulos y dependencias de Node.js
 node_modules
 dist
 dist-ssr
 *.local
+
+# Archivos y directorios específicos del entorno de desarrollo
+.env.development
 
 # Editor directories and files
 .vscode/*

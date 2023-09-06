@@ -4,7 +4,6 @@ import { FaEye, FaTrash, FaEdit } from 'react-icons/fa';
 const exampleData = [
   { id: 2, name: 'susan', dni: 20399451, email: 'lindsaywalton@example.com',saldo:300000},
   { id: 1, name: 'robin', dni: 50391345, email: 'courtneyhenry@example.com',saldo:400000},
-
 ]
 const ClientList = () => {
   const [data, setData] = useState([]);
