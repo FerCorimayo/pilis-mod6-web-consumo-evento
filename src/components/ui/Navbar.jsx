@@ -31,10 +31,10 @@ const Navbar = ({navegation}) => {
         </div>
         <div className="hidden sm:ml-6 sm:block">
           <div className="flex space-x-4 divide-x-2 divide-white-300">
-            {navegation.map((nav_link) => (
-                <NavLink to={nav_link} >
-                    <a href="#" className="px-3 py-2 text-sm font-medium text-gray-300 rounded-md hover:bg-blue-600 hover:text-white">{nav_link}</a>
-                </NavLink>
+            {navegation.map((nav_link, index) => (
+              <NavLink to={nav_link} key={index}>
+                <a href="#" className="px-3 py-2 text-sm font-medium text-gray-300 rounded-md hover:bg-blue-600 hover:text-white">{nav_link}</a>
+              </NavLink>
             ))}
           </div>
         </div>
