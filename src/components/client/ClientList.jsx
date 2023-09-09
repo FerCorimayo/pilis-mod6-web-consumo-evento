@@ -4,12 +4,10 @@ import { FaEye, FaTrash, FaEdit } from 'react-icons/fa';
 import {BiSolidBadgeDollar} from 'react-icons/bi';
 import axios from 'axios';
 import { ClientsRegisteredContex } from '../../context/ClientRegisteredContext'
+import { listClient } from '../../helpers/client';
 
-// const exampleData = [
-//   { id: 2, name: 'susan', dni: 20399451, email: 'lindsaywalton@example.com',saldo:300000},
-//   { id: 1, name: 'robin', dni: 50391345, email: 'courtneyhenry@example.com',saldo:400000},
+const baseUrl = import.meta.env.VITE_API_URL;
 
-// ]
 const ClientList = () => {
   const [data, setData] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
@@ -50,12 +48,11 @@ const userSelectedView = (name) =>{
 
   //obtencion dedatos
   useEffect(() => {
-    axios.get('https://64f32c36edfa0459f6c65f8a.mockapi.io/api/clients/user')
-    .then(response => {
-      const data = response.data;
+    listClient().then(data => {
+      console.log(data)
       setData(data);
       const results = data.filter(person =>
-        person.name.toLowerCase().includes(searchTerm.toLowerCase())
+        person.user.fullname.toLowerCase().includes(searchTerm.toLowerCase())
       );
       setSearchResults(results);
     });
@@ -87,11 +84,11 @@ const userSelectedView = (name) =>{
     <tbody>
       {searchResults.map((item, index) => (
             <tr key={index} className='border-t border-gray-300'>
-          <td className="px-4 py-2 text-center">{item.id}</td>
-          <td className="px-4 py-2 text-center">{item.dni}</td>
-          <td className="px-4 py-2 text-center">{item.name}</td>
-          <td className="px-4 py-2 text-center">{item.email}</td>
-          <td className="px-4 py-2 text-center">{item.saldo}</td>
+          <td className="px-4 py-2 text-center">{item.user.id}</td>
+          <td className="px-4 py-2 text-center">{item.user.dni}</td>
+          <td className="px-4 py-2 text-center">{item.user.fullname}</td>
+          <td className="px-4 py-2 text-center">{item.user.email}</td>
+          <td className="px-4 py-2 text-center">{item.balance}</td>
           <td className="flex justify-end px-4 py-2">
         <Link to="/clientes/balance">
         <button onClick={() => userSelectedTopUp(item)} className="px-4 py-2 mx-1 font-bold text-white bg-yellow-500 rounded hover:bg-yellow-700">
