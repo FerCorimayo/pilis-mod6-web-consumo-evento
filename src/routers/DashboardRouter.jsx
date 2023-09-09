@@ -1,8 +1,9 @@
 import { Routes, Route } from 'react-router-dom';
-import Navbar from '../components/ui/Navbar';
-import ClientList from '../components/client/ClientList';
+import Navbar from '../Components/ui/Navbar';
+import ClientBalance from '../Components/client/ClientBalance';
+import ClientList from "../Components/client/ClientList";
 import SellerList from '../components/seller/SellerList';
-import ClientForm from '../components/client/ClientForm';
+import ClientForm from '../Components/client/ClientForm';
 
 const DashboardRouter = () => {
   return (
@@ -10,7 +11,9 @@ const DashboardRouter = () => {
         <Navbar />
         <div>
             <Routes>
-                <Route path="clientes" element={<ClientForm />} />
+                <Route path="clientes" element={<ClientList />} />
+                <Route path="clienteForm" element={<ClientForm />} />
+                <Route path="clienteBalan" element={<ClientBalance />} />
                 <Route path="vendedores" element={<SellerList />} />
             </Routes>
         </div>

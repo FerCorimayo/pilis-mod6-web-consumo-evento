@@ -1,48 +1,75 @@
 import { Link } from 'react-router-dom';
-import React, { useState, useEffect } from 'react';
+import React, {useContext, useState, useEffect } from 'react';
 import { FaEye, FaTrash, FaEdit } from 'react-icons/fa';
-const exampleData = [
-  { id: 2, name: 'susan', dni: 20399451, email: 'lindsaywalton@example.com',saldo:300000},
-  { id: 1, name: 'robin', dni: 50391345, email: 'courtneyhenry@example.com',saldo:400000},
+import {BiSolidBadgeDollar} from 'react-icons/bi';
+import axios from 'axios';
+import { ClientsRegisteredContex } from './ClientRegisteredContext'
 
-]
+// const exampleData = [
+//   { id: 2, name: 'susan', dni: 20399451, email: 'lindsaywalton@example.com',saldo:300000},
+//   { id: 1, name: 'robin', dni: 50391345, email: 'courtneyhenry@example.com',saldo:400000},
+
+// ]
 const ClientList = () => {
   const [data, setData] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState(data);
+
+
+  const { clientRegistered, setClientRegistered } = useContext(ClientsRegisteredContex);
+
   //borrador de usuarios
-  /*const handleDelete = id => {
-    axios.delete(`${id}`).then(response => {
-      setData(response.data);
+  const handleDelete = id => {
+    axios.delete(`https://64f32c36edfa0459f6c65f8a.mockapi.io/api/clients/user/${id}`).then(response => {
+      setData(prevData => {
+        const newData = prevData.filter(user => user.id !== id);
+        setSearchResults(newData);
+        return newData;
+      });
     });
-  };*/
+  };
+  
+  
   //buscador
   const handleChange = event => {
     setSearchTerm(event.target.value);
   };
-  //obtencion de datos
-  /*useEffect(() => {
-    fetch('')
-      .then(response => response.json())
-      .then(data => setData(data));
-  }, []);*/
-  //buscador
+  const userNull = ()=> {
+    setClientRegistered({modo:0})
+  }
+  const userSelectedTopUp = (name) =>{
+    setClientRegistered(name)
+  }
+  const userSelectedEdit = (name) =>{
+    
+    setClientRegistered({...name,modo:1})
+  }
+const userSelectedView = (name) =>{
+    setClientRegistered({...name,modo:2})
+}
+
+  //obtencion dedatos
   useEffect(() => {
-    const results = exampleData.filter(person =>
-      person.name.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-    setSearchResults(results);
+    axios.get('https://64f32c36edfa0459f6c65f8a.mockapi.io/api/clients/user')
+    .then(response => {
+      const data = response.data;
+      setData(data);
+      const results = data.filter(person =>
+        person.name.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      setSearchResults(results);
+    });
   }, [searchTerm]);
 
   return (
-  <div className="h-screen w-screen bg-gray-300">
-    <div className='max-w-full mx-7 my-7 bg-white'>
+  <div className="w-screen h-screen bg-gray-300">
+    <div className='max-w-full bg-white mx-7 my-7'>
       <section className="flex justify-between">
       <input type="text" placeholder="Buscar" value={searchTerm} onChange={handleChange}
-      className="text-lg self-start flex-shrink-0 my-6 mx-7 px-4 py-1 bg-white border rounded-3xl shadow-sm border-slate-400 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"/>
+      className="self-start flex-shrink-0 px-4 py-1 my-6 text-lg bg-white border shadow-sm mx-7 rounded-3xl border-slate-400 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"/>
       
-      <Link to="/clientes">
-      <button className="px-5 py-3 m-5 bg-blue-600 rounded-3xl text-white">Nuevo Cliente</button>
+      <Link to="/clienteForm">
+      <button onClick={() => userNull()} className="px-5 py-3 m-5 text-white bg-blue-600 rounded-3xl">Nuevo Cliente</button>
       </Link>
       </section>
   <section className='m-8'>
@@ -65,15 +92,25 @@ const ClientList = () => {
           <td className="px-4 py-2 text-center">{item.name}</td>
           <td className="px-4 py-2 text-center">{item.email}</td>
           <td className="px-4 py-2 text-center">{item.saldo}</td>
-          <td className="px-4 py-2 flex justify-end"><button className="mx-1 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+          <td className="flex justify-end px-4 py-2">
+        <Link to="/clienteBalan">
+        <button onClick={() => userSelectedTopUp(item)} className="px-4 py-2 mx-1 font-bold text-white bg-yellow-500 rounded hover:bg-yellow-700">
+          <BiSolidBadgeDollar />
+        </button></Link>
+        <Link to="/clienteForm">
+        <button onClick={() => userSelectedEdit(item)} className="px-4 py-2 mx-1 font-bold text-white bg-blue-500 rounded hover:bg-blue-700">
           <FaEdit />
         </button>
-        <button className="mx-1 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+        </Link>
+        <Link to="/clienteForm">
+        <button onClick={() => userSelectedView(item)}className="px-4 py-2 mx-1 font-bold text-white bg-green-500 rounded hover:bg-green-700">
           <FaEye />
         </button>
-        <button onClick={() => handleDelete(item.id)} className="mx-1 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+        </Link>
+        <button onClick={() => handleDelete(item.id)} className="px-4 py-2 mx-1 font-bold text-white bg-red-500 rounded hover:bg-red-700">
           <FaTrash />
-        </button></td>
+        </button>
+        </td>
         </tr>
       ))}
     </tbody>
