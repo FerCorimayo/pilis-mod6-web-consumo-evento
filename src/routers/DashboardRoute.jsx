@@ -1,9 +1,10 @@
 import { Routes, Route } from 'react-router-dom';
 import Navbar from '../components/ui/Navbar';
-import ClientList from '../components/client/ClientList';
 import SellerList from '../components/seller/SellerList';
-import ClientForm from '../components/client/ClientForm';
 import SellerForm from '../components/seller/SellerForm';
+import ClientList from '../components/client/ClientList';
+import ClientForm from '../components/client/ClientForm';
+import ClientBalance from '../Components/client/ClientBalance';
 import { AuthContext } from '../context/AuthContext';
 import { useContext } from 'react';
 
@@ -23,6 +24,7 @@ export const DashboardRoute = () => {
                       <Route path="vendedores/nuevo" element={<SellerForm />} />
                       <Route path="clientes" element={<ClientList />} />
                       <Route path="clientes/nuevo" element={<ClientForm />} />
+                      <Route path="clientes/balance" element={<ClientBalance />} />
                   </Routes>
               </div>
           </>
