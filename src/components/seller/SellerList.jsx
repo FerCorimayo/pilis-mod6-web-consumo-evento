@@ -1,22 +1,59 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { HiOutlineSearch, HiEye, HiPencil } from 'react-icons/hi';
 import { FaTrash } from 'react-icons/fa'
-import { listSeller } from '../../helpers/seller'
+import { listSeller, deleteBusiness, deleteSeller } from '../../helpers/seller'
 import { NavLink } from 'react-router-dom';
+import { useNavigate  } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 const SellerList = () => {
 
   const [sellers, setSellers] = useState([]);
+  const navigate = useNavigate();
+
 
   useEffect(() => {
-    listSeller()
-      .then((usersSellers) => {
-        setSellers(usersSellers)
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-      });
+    obtenerSellers()
   }, []);
+
+  const obtenerSellers = () => {
+    listSeller().then((body) => {
+      if (body.message) {
+        return Swal.fire('Error', body.message, 'error');
+      }
+      setSellers(body)
+    }).catch((error) => {console.error('Error:', error)});
+  }
+
+  const handleUpdate = (seller) => {
+    navigate(`/vendedores/nuevo?${seller.id}`, { state: { stateSeller: seller } })
+  }
+  const handleDelete = (seller) => {
+    Swal.fire({
+      title: 'Eliminar Registro?',
+      text: "No podrá recuperar el registro!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteBusiness(seller.id).then((body) => {
+          if (body.message) {
+            return Swal.fire('Error', body.message, 'error');
+          }
+          deleteSeller(seller.user.id).then((body) => {
+            if (body.message) {
+              return Swal.fire('Error', body.message, 'error');
+            }
+            Swal.fire('Eliminado!','Un registro fue eliminado!','success')
+            obtenerSellers()
+          }).catch((error) => {console.error('Error:', error)});
+        }).catch((error) => {console.error('Error:', error)});
+      }
+    })
+  }
 
   return (
     <div className="h-screen p-4 bg-white rounded-2xl">
@@ -50,16 +87,16 @@ const SellerList = () => {
         </div>
         <div className="table-row-group">
           {sellers.map((seller) => (
-            <div className="table-row">
+            <div className="table-row" key={seller.id}>
               <div className="table-cell pt-3 pb-3 font-semibold text-center border-b-2 border-gray-500 border-solid text-md text-zinc-400">{seller.id}</div>
               <div className="table-cell pt-3 pb-3 font-semibold text-center border-b-2 border-gray-500 border-solid text-md text-zinc-400">{seller.location}</div>
               <div className="table-cell pt-3 pb-3 font-semibold text-center border-b-2 border-gray-500 border-solid text-md text-zinc-400">{seller.name}</div>
               <div className="table-cell pt-3 pb-3 font-semibold text-center border-b-2 border-gray-500 border-solid text-md text-zinc-400">{seller.type}</div>
               <div className="table-cell pt-3 pb-3 font-semibold text-center border-b-2 border-gray-500 border-solid text-md text-zinc-400">{seller.user.fullname}</div>
               <div className="flex justify-end pt-3 pb-5 mr-3 border-b-2 border-gray-500 border-solid">
-                <HiEye className="w-5 h-auto mx-1 text-emerald-500" />
-                <HiPencil className="w-5 h-auto mx-1 text-sky-500" />
-                <FaTrash className="w-5 h-auto ml-1 text-rose-500" />
+                <HiEye className="w-5 h-auto mx-1 cursor-pointer text-emerald-500 hover:text-emerald-400" />
+                <HiPencil className="w-5 h-auto mx-1 cursor-pointer text-sky-500 hover:text-sky-400" onClick={() => handleUpdate(seller)}/>
+                <FaTrash className="w-5 h-auto ml-1 cursor-pointer text-rose-500 hover:text-rose-400" onClick={() => handleDelete(seller)}/>
               </div>
             </div>
           ))}
