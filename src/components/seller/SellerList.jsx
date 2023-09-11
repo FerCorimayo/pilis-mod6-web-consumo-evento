@@ -11,12 +11,20 @@ const SellerList = () => {
   const [sellers, setSellers] = useState([]);
   const navigate = useNavigate();
 
+  const [searchQuery, setSearchQuery] = useState('')
 
   useEffect(() => {
-    obtenerSellers()
+    getSellers()
   }, []);
 
-  const obtenerSellers = () => {
+  const handleSearch = event => {
+    setSearchQuery(event.target.value)
+  }
+  const filteredSellers = sellers.filter(seller => (
+    seller.user.fullname.toLowerCase().includes(searchQuery.toLowerCase())
+  ))
+
+  const getSellers = () => {
     listSeller().then((body) => {
       if (body.message) {
         return Swal.fire('Error', body.message, 'error');
@@ -28,6 +36,7 @@ const SellerList = () => {
   const handleUpdate = (seller) => {
     navigate(`/vendedores/nuevo?${seller.id}`, { state: { stateSeller: seller } })
   }
+
   const handleDelete = (seller) => {
     Swal.fire({
       title: 'Eliminar Registro?',
@@ -36,7 +45,8 @@ const SellerList = () => {
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes'
+      confirmButtonText: 'Eliminar',
+      cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.isConfirmed) {
         deleteBusiness(seller.id).then((body) => {
@@ -48,7 +58,7 @@ const SellerList = () => {
               return Swal.fire('Error', body.message, 'error');
             }
             Swal.fire('Eliminado!','Un registro fue eliminado!','success')
-            obtenerSellers()
+            getSellers()
           }).catch((error) => {console.error('Error:', error)});
         }).catch((error) => {console.error('Error:', error)});
       }
@@ -57,17 +67,16 @@ const SellerList = () => {
 
   return (
     <div className="h-screen p-4 bg-white rounded-2xl">
+      <div className="pb-4 flex justify-center">
+        <h1 className=" lg:text-4xl text-3xl font-bold text-zinc-500">Vendedores</h1>
+      </div>
       <div className="flex justify-between w-full">
         <form className="w-3/12 p-2 bg-white border-2 border-solid rounded-full border-zinc-300">
           <div className="inline-block w-full">
             <button className="w-1/12 pl-1">
               <HiOutlineSearch className="w-6 text-zinc-500" />
             </button>
-            <input
-              type="text"
-              className="w-11/12 pl-2 text-lg focus:outline-none"
-              placeholder="Buscar vendedor"
-            />
+            <input type="text" className="w-11/12 pl-2 text-lg focus:outline-none" placeholder="Buscar vendedor" onChange={handleSearch} value={searchQuery}/>
           </div>
         </form>
         <NavLink to="/vendedores/nuevo" >
@@ -86,7 +95,7 @@ const SellerList = () => {
           </div>
         </div>
         <div className="table-row-group">
-          {sellers.map((seller) => (
+          {filteredSellers.map((seller) => (
             <div className="table-row" key={seller.id}>
               <div className="table-cell pt-3 pb-3 font-semibold text-center border-b-2 border-gray-500 border-solid text-md text-zinc-400">{seller.id}</div>
               <div className="table-cell pt-3 pb-3 font-semibold text-center border-b-2 border-gray-500 border-solid text-md text-zinc-400">{seller.location}</div>
