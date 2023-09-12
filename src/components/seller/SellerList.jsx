@@ -65,10 +65,16 @@ const SellerList = () => {
     })
   }
 
+  const handleDetail = (seller) => {
+    navigate(`/vendedores/venta?${seller.id}`, { state: { stateSeller: seller } })
+  }
+
   return (
     <div className="h-screen p-4 bg-white rounded-2xl">
       <div className="pb-4 flex justify-center">
-        <h1 className=" lg:text-4xl text-3xl font-bold text-zinc-500">Vendedores</h1>
+        <div className="md:pr-10 md:pt-5">
+          <p className="text-3xl md:text-4xl font-semibold text-zinc-500">Vendedores</p>
+        </div>
       </div>
       <div className="flex justify-between w-full">
         <form className="w-3/12 p-2 bg-white border-2 border-solid rounded-full border-zinc-300">
@@ -103,7 +109,7 @@ const SellerList = () => {
               <div className="table-cell pt-3 pb-3 font-semibold text-center border-b-2 border-gray-500 border-solid text-md text-zinc-400">{seller.type}</div>
               <div className="table-cell pt-3 pb-3 font-semibold text-center border-b-2 border-gray-500 border-solid text-md text-zinc-400">{seller.user.fullname}</div>
               <div className="flex justify-end pt-3 pb-5 mr-3 border-b-2 border-gray-500 border-solid">
-                <HiEye className="w-5 h-auto mx-1 cursor-pointer text-emerald-500 hover:text-emerald-400" />
+                <HiEye className="w-5 h-auto mx-1 cursor-pointer text-emerald-500 hover:text-emerald-400" onClick={() => handleDetail(seller)}/>
                 <HiPencil className="w-5 h-auto mx-1 cursor-pointer text-sky-500 hover:text-sky-400" onClick={() => handleUpdate(seller)}/>
                 <FaTrash className="w-5 h-auto ml-1 cursor-pointer text-rose-500 hover:text-rose-400" onClick={() => handleDelete(seller)}/>
               </div>
