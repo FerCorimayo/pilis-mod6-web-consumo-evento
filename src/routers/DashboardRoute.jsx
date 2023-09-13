@@ -2,6 +2,7 @@ import { Routes, Route } from 'react-router-dom';
 import Navbar from '../components/ui/Navbar';
 import SellerList from '../components/seller/SellerList';
 import SellerForm from '../components/seller/SellerForm';
+import SalesList from '../Components/seller/SalesList';
 import ClientList from '../components/client/ClientList';
 import ClientForm from '../components/client/ClientForm';
 import ClientBalance from '../Components/client/ClientBalance';
@@ -22,6 +23,7 @@ export const DashboardRoute = () => {
                   <Routes>
                       <Route path="vendedores" element={<SellerList />} />
                       <Route path="vendedores/nuevo" element={<SellerForm />} />
+                      <Route path="vendedores/venta" element={<SalesList />} />
                       <Route path="clientes" element={<ClientList />} />
                       <Route path="clientes/nuevo" element={<ClientForm />} />
                       <Route path="clientes/balance" element={<ClientBalance />} />
