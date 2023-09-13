@@ -161,28 +161,28 @@ const SellerForm = () => {
 								placeholder="Numero del Puesto"
 								{...register('puesto', stateSeller ? {required:false}:{ required: true })}
 							/>
+							{errors.puesto && <span className="text-red-600"> *Este campo es requerido</span>}
 						</div>
-						{errors.puesto && <span className="text-red-600"> *Este campo es requerido</span>}
 						<div className="mb-4 md:ml-3">
 							<label className="block pb-1 mb-1 text-lg font-medium text-zinc-500">Categoria</label>
-							<select {...register('category', stateSeller ? {required:false}:{ required: true })} className="w-6/12 text-zinc-500 border-solid border-2 border-zinc-300 rounded-xl focus:outline-none focus:border-[#007abe] focus:ring-1 focus:ring-[#007abe] p-2">
+							<select {...register('category', stateSeller ? {required:false}:{ required: true })} className="w-full text-zinc-500 border-solid border-2 border-zinc-300 rounded-xl focus:outline-none focus:border-[#007abe] focus:ring-1 focus:ring-[#007abe] p-2">
 								<option value="">Seleccione</option>
 								<option value="Accesorios" >Accesorios</option>
 								<option value="Comida" >Comida</option>
 								<option value="Bebidas" >Bebidas</option>
 								<option value="Golosinas" >Golosinas</option>
 							</select>
+							{errors.category && <span className="text-red-600"> *Este campo es requerido</span>}
 						</div>
-						{errors.category && <span className="text-red-600"> *Este campo es requerido</span>}
 					</div>
 				</div>
-				<div className="flex justify-end md:mt-9 md:mr-6">
+				<div className="flex justify-end md:mt-9">
 					{stateSeller ?
-          <button type="submit" className="bg-[#00be2f] hover:bg-[#00be09] font-medium text-white mt-8 py-3 px-9 rounded-full">Actualizar</button>
+					<button type="submit" className="bg-[#00be2f] hover:bg-[#00be09] font-medium text-white mt-8 py-3 px-9 rounded-full">Actualizar</button>
 					:
 					<button type="submit" className="bg-[#007abe] hover:bg-[#005b8e] font-medium text-white mt-8 py-3 px-9 rounded-full">Guardar</button>
 					}
-        </div>
+				</div>
 			</form >
 		</div >
 	)

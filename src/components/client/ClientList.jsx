@@ -1,61 +1,73 @@
 import { NavLink } from 'react-router-dom';
-import React, {useContext, useState, useEffect } from 'react';
-import { FaEye, FaTrash, FaEdit, FaDollarSign } from 'react-icons/fa';
+import {useContext, useState, useEffect } from 'react';
+import { FaTrash, FaDollarSign } from 'react-icons/fa';
 import { HiOutlineSearch, HiEye, HiPencil } from 'react-icons/hi';
-import axios from 'axios';
 import { ClientsRegisteredContex } from '../../context/ClientRegisteredContext'
-import { listClient } from '../../helpers/client';
-
-const baseUrl = import.meta.env.VITE_API_URL;
+import { listClient, deleteClient, deleteWallet } from '../../helpers/client';
+import Swal from 'sweetalert2'
 
 const ClientList = () => {
   const [data, setData] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
-  const [searchResults, setSearchResults] = useState(data);
 
+  const { setClientRegistered } = useContext(ClientsRegisteredContex);
 
-  const { clientRegistered, setClientRegistered } = useContext(ClientsRegisteredContex);
-
-  //borrador de usuarios
-  const handleDelete = id => {
-    axios.delete(`https://64f32c36edfa0459f6c65f8a.mockapi.io/api/clients/user/${id}`).then(response => {
-      setData(prevData => {
-        const newData = prevData.filter(user => user.id !== id);
-        setSearchResults(newData);
-        return newData;
-      });
-    });
+  const handleDelete = (item) => {
+    Swal.fire({
+      title: 'Eliminar Registro?',
+      text: "No podrá recuperar el registro!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Eliminar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteWallet(item.id).then((body) => {
+          if (body.message) {
+            return Swal.fire('Error', body.message, 'error');
+          }
+          deleteClient(item.user.id).then((body) => {
+            if (body.message) {
+              return Swal.fire('Error', body.message, 'error');
+            }
+            Swal.fire('Eliminado!','Un registro fue eliminado!','success')
+            getClients()
+          }).catch((error) => {console.error('Error:', error)});
+        }).catch((error) => {console.error('Error:', error)});
+      }
+    })
   };
-  
-  
-  //buscador
   const handleChange = event => {
     setSearchTerm(event.target.value);
   };
-  const userNull = ()=> {
+  const userNull = ()=> {//create
     setClientRegistered({modo:0})
   }
-  const userSelectedTopUp = (name) =>{
+  const userSelectedTopUp = (name) =>{//dtail-balance
     setClientRegistered(name)
   }
-  const userSelectedEdit = (name) =>{
+  const userSelectedEdit = (name) =>{//edit
     setClientRegistered({...name,modo:1})
   }
-const userSelectedView = (name) =>{
-    setClientRegistered({...name,modo:2})
-}
+  const userSelectedView = (name) =>{ //detail-payment
+      setClientRegistered({...name,modo:2})
+  }
 
-  //obtencion dedatos
+  const filteredClients = data.filter(client => (
+    client.user.fullname.toLowerCase().includes(searchTerm.toLowerCase())
+  ))
+
   useEffect(() => {
+    getClients()
+  }, []);
+  
+  const getClients = () => {
     listClient().then(data => {
-      console.log(data)
       setData(data);
-      const results = data.filter(person =>
-        person.user.fullname.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-      setSearchResults(results);
     });
-  }, [searchTerm]);
+  }
 
   return (
     <div className="h-screen p-4 bg-white rounded-2xl">
@@ -89,7 +101,7 @@ const userSelectedView = (name) =>{
         </div>
       </div>
       <div className="table-row-group">
-        {searchResults.map((item) => (
+        {filteredClients.map((item) => (
           <div className="table-row" key={item.id}>
             <div className="table-cell pt-3 pb-3 font-semibold text-center border-b-2 border-gray-500 border-solid text-md text-zinc-400">{item.user.id}</div>
             <div className="table-cell pt-3 pb-3 font-semibold text-center border-b-2 border-gray-500 border-solid text-md text-zinc-400">{item.user.dni}</div>
@@ -97,8 +109,10 @@ const userSelectedView = (name) =>{
             <div className="table-cell pt-3 pb-3 font-semibold text-center border-b-2 border-gray-500 border-solid text-md text-zinc-400">{item.user.email}</div>
             <div className="table-cell pt-3 pb-3 font-semibold text-center border-b-2 border-gray-500 border-solid text-md text-zinc-400">{item.balance}</div>
             <div className="flex justify-end pt-3 pb-5 mr-3 border-b-2 border-gray-500 border-solid">
-              <FaDollarSign className="w-5 h-auto mx-1 text-yellow-500 cursor-pointer hover:text-yellow-400" onClick={() => handleDetailBalance(item)}/>
-              <HiEye className="w-5 h-auto mx-1 cursor-pointer text-emerald-500 hover:text-emerald-400" onClick={() => handleDetail(item)}/>
+              <NavLink to="/clientes/balance">
+                <FaDollarSign className="w-5 h-auto mx-1 text-yellow-500 cursor-pointer hover:text-yellow-400" onClick={() => userSelectedTopUp(item)}/>
+              </NavLink>
+              <HiEye className="w-5 h-auto mx-1 cursor-pointer text-emerald-500 hover:text-emerald-400" onClick={() => userSelectedView(item)}/>
               <NavLink to="/clientes/nuevo">
                 <HiPencil className="w-5 h-auto mx-1 cursor-pointer text-sky-500 hover:text-sky-400" onClick={() => userSelectedEdit(item)}/>
               </NavLink>
