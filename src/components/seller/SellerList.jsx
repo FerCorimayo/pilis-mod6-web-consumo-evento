@@ -71,9 +71,9 @@ const SellerList = () => {
 
   return (
     <div className="h-screen p-4 bg-white rounded-2xl">
-      <div className="pb-4 flex justify-center">
+      <div className="flex justify-center pb-4">
         <div className="md:pr-10 md:pt-5">
-          <p className="text-3xl md:text-4xl font-semibold text-zinc-500">Vendedores</p>
+          <p className="text-3xl font-semibold md:text-4xl text-zinc-500">Lista de Vendedores</p>
         </div>
       </div>
       <div className="flex justify-between w-full">
