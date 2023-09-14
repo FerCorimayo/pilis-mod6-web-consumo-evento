@@ -8,6 +8,7 @@ import ClientForm from '../components/client/ClientForm';
 import ClientBalance from '../Components/client/ClientBalance';
 import { AuthContext } from '../context/AuthContext';
 import { useContext } from 'react';
+import PurchaseList from '../Components/client/PurchaseList';
 
 export const DashboardRoute = () => {
 
@@ -27,6 +28,7 @@ export const DashboardRoute = () => {
                       <Route path="clientes" element={<ClientList />} />
                       <Route path="clientes/nuevo" element={<ClientForm />} />
                       <Route path="clientes/balance" element={<ClientBalance />} />
+                      <Route path="clientes/compras" element={<PurchaseList />} />
                   </Routes>
               </div>
           </>

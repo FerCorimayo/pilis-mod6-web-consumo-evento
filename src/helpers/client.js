@@ -5,7 +5,11 @@ export const listClient = async () =>{
     const body = await resp.json();
     return body;
 }
-
+export const listTransactionsClient = async (id) =>{
+    const resp = await fetchWithToken(`transactions?wallet=${id}`);
+    const body = await resp.json();
+    return body;
+}
 export const createClient = async (client) =>{
     const resp = await fetchWithToken('users', client, 'POST');
     const body = await resp.json();
