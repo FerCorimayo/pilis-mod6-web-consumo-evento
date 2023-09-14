@@ -1,169 +1,134 @@
 import { useForm } from "react-hook-form";
-import axios from 'axios';
 import Swal from 'sweetalert2'
-const ClientForm = () => {
-    const {register, handleSubmit,watch, formState: {errors}}=useForm();
+import { FaChevronLeft } from 'react-icons/fa'
+import { useNavigate  } from 'react-router-dom';
+import { useContext, useEffect } from 'react';
 
-    // const saldo= watch("text5")
-    const onSubmit = async(data) => {
-    
-    const da = {
-    nombre: data.text,
-    email: data.text1,
-    dni: data.text2,
-    usuario: data.text3,
-    contrasenia: data.text4,
-    saldo:data.text5
-    }
-      try { 
-    /* reemplazar por post api 
-      const respuesta = await axios({
-      method: 'post',
-      url: 'url',
-      data: da,
-      headers: {
-        //pasar por prompt "mitoken"
-        'Authorization': `Bearer ${miToken}`
+import { ClientsRegisteredContex } from '../../context/ClientRegisteredContext'
+import { createClient, updateClient, createWallet } from "../../helpers/client";
+
+const ClientForm = () => {
+  const navigate = useNavigate();
+  const { clientRegistered } = useContext(ClientsRegisteredContex);
+
+  const {register, handleSubmit, formState: {errors}, reset, setValue}=useForm();
+
+  useEffect(() => {
+    updateForm()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  const updateForm = () => {
+    if (clientRegistered) {
+      if(clientRegistered.modo==1 || clientRegistered.modo==2){
+        setValue('fullname',clientRegistered?.user?.fullname)
+        setValue('email',clientRegistered?.user?.email)
+        setValue('dni',clientRegistered?.user?.dni)
       }
-    });
-    */
-    const respuesta = await axios.post('http://jsonplaceholder.org/posts', da);
-      
-      Swal.fire(
-        'Formulario enviado',
-        `Hola ${data.text}, tu formulario ha sido enviado exitosamente!`,
-        'success'
-      );
-      console.log(respuesta)
-      }catch (error) {
-        Swal.fire(
-    'Error',
-    'Hubo un error al enviar el formulario. Por favor, inténtalo de nuevo.',
-    'error'
-  );
-        console.error(error);
-      }
+      return;
     }
-    return (
-        <>
-    {/* <div>
-      
-      <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-1 grid-rows-2 gap-4 p-2 bg-gray-200 md:grid-cols-2 md:grid-rows-1 sm:p-3 md:p-5">
-      
-      <div className="grid grid-cols-2 grid-rows-5 gap-1 p-4 pb-5 m-2 bg-white rounded-md sm:w-auto sm:gap-3 md:gap-4 sm:m-3 md:m-5 sm:p-8 md:p-8 lg:p-16">
-      <h4 className="col-span-2 p-5 pb-0 text-2xl font-bold text-gray-500 border-b border-gray-500 sm:pb-5" >Nuevo Usuario</h4> */}
-        <div className="flex justify-center p-2 bg-gray-400 sm:p-3 md:p-5">
-      
-      <form onSubmit={handleSubmit(onSubmit)} className="grid w-full grid-cols-2 grid-rows-5 gap-1 p-4 pb-5 m-2 bg-white rounded-md sm:w-auto sm:gap-3 md:gap-4 sm:m-3 md:m-5 sm:p-8 md:p-16">
-      
-        <div className='col-span-2 row-span-1'>
-          <label className="flex flex-row justify-start pt-4 text-sm font-medium leading-6 text-gray-500"> Nombre</label>
-          <input
-            type='text' 
-            placeholder="Usuario" className="block w-full px-3 py-2 mt-1 text-sm bg-white border rounded-md shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
-            {...register(
-              'text', {
-                required: "Este campo esta vacio",
-                validate: value => typeof value === "string" || "Este campo debe ser de texto"
-              }
-            )}
-          />
-          <p className="text-red-500">{errors.text?.message}</p>
-          </div>
-          
-          <div className='col-span-2 row-span-1'>
-          <label className="flex flex-row justify-start pt-4 text-sm font-medium leading-6 text-gray-500"> Email</label>
-          <input
-            type='text'
-            placeholder="Email"
-            className="block w-full px-3 py-2 mt-1 text-sm bg-white border rounded-md shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
-            {...register(
-              'text1',{
-                required: "Este campo esta vacio"
-              }
-            )}
-          />
-          <p className="text-red-500">{errors.text1?.message}</p>
+	}
+
+  const onSubmit = (data) => {
+    const client = {
+        fullname: data.fullname,
+        dni: parseInt(data.dni),
+        email: data.email,            
+        password: data.password,
+        role: 'client'
+    }
+    const wallet = {
+      idUser: null
+    }
+    if (clientRegistered.modo==1) {
+      updateClient(client, clientRegistered.user.id).then((body) => {
+        if(body.message){
+          return Swal.fire('Error', body.message, 'error')
+        }
+        Swal.fire('Actualizado!','Un registro fue actualizado!','success')
+        navigate('/clientes')
+      }).catch((error) => {console.error('Error:', error)});
+    } else {
+      createClient(client).then((body) => {
+        if(body.message){
+          return Swal.fire('Error', body.message, 'error')
+        }
+        wallet.idUser= parseInt(body.id)
+        createWallet(wallet).then((body) => {
+          if(body.message){
+            return Swal.fire('Error', body.message, 'error')
+          }
+          Swal.fire('Guardado!','Un registro nuevo fue creado!','success')
+          reset()
+          navigate('/clientes')
+        }).catch((error) => {console.error('Error:', error)});
+      }).catch((error) => {console.error('Error:', error)});
+    }
+  }
+
+  return (
+    <div className="p-8 md:h-screen">
+      <form className="h-auto p-6 bg-white md:h-full rounded-xl" onSubmit={handleSubmit(onSubmit)}>
+        <div className="block md:flex">
+          <div className="h-auto bg-white md:w-7/12 md:h-full mx-auto">
+            <div className="flex justify-start pb-4 border-b-2 border-solid border-zinc-500">
+              <FaChevronLeft className="w-5 h-auto mx-1 cursor-pointer text-zinc-500 hover:text-zinc-400" onClick={()=>(navigate('/clientes'))} />
+              <p className="w-7/12 ml-2 text-3xl font-bold text-zinc-500">
+                {clientRegistered.modo==1 ? 'Actualizar Cliente':'Nuevo Cliente'}
+              </p>
             </div>
-          <div className='col-span-2 row-span-1'>
-          <label className="flex flex-row justify-start pt-4 text-sm font-medium leading-6 text-gray-500"> Dni</label>
-          <input
-            type='text'
-            placeholder="Dni"
-            className="block w-full px-3 py-2 mt-1 text-sm bg-white border rounded-md shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
-            {...register(
-              'text2',{
-                required: "Este campo esta vacio",
-                validate: value => !isNaN(value) || "Este campo debe ser numérico"
-              }
-            )}
-          />
-          <p className="text-red-500">{errors.text2?.message}</p>
+            <div className="mt-4 mb-4">
+              <label className="block pb-1 mb-1 text-lg font-medium text-zinc-500">Nombre Completo</label>
+              <input
+                type="text"
+                className="w-full border-solid border-2 border-zinc-300 rounded-xl focus:outline-none focus:border-[#007abe] focus:ring-1 focus:ring-[#007abe] p-2"
+                placeholder="Nombre Completo"
+                {...register('fullname', clientRegistered.modo==1 ? {required:false}:{ required: true })}
+              />
+              {errors.fullname && <span className="text-red-600"> *Este campo es requerido</span>}
             </div>
-       <div className='col-span-2 row-span-1 md:col-span-1'>
-          <label className="flex flex-row justify-start pt-4 text-sm font-medium leading-6 text-gray-500"> Usuario</label>
-          <input
-            type='text' 
-            placeholder="Usuario"
-            className="block w-full px-3 py-2 mt-1 text-sm bg-white border rounded-md shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
-            {...register(
-              'text3',{required: "Este campo esta vacio",}
-            )}
-          />
-          <p className="text-red-500">{errors.text3?.message}</p>
-          </div>
-        <div className='col-span-2 row-span-1 md:col-span-1'>
-          <label className="flex flex-row justify-start pt-4 text-sm font-medium leading-6 text-gray-500"> Contraseña</label>
-          <input
-            type='text'
-            placeholder="Contraseña"
-            className="block w-full px-3 py-2 mt-1 text-sm bg-white border rounded-md shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
-            {...register(
-              'text4',{required: "Este campo esta vacio",}
-            )}
-          />
-          <p className="text-red-500">{errors.text4?.message}</p>
-          </div>
-          
-          <div className="flex flex-row justify-end col-span-2">
-          <button className="px-5 py-3 m-4 bg-blue-600 rounded-3xl active:bg-blue-900" type='submit'>Enviar</button>
-          </div>
-          {/* </div> */}
-          
-          {/* <div className="grid w-full grid-cols-1 grid-rows-6 gap-1 p-4 pb-5 m-2 bg-white rounded-md sm:w-auto sm:gap-3 md:gap-4 sm:m-3 md:m-5 sm:p-8 md:p-7 lg:p-16">
-          <h4 className="col-span-1 row-span-1 p-5 pb-0 text-2xl font-bold text-gray-500 border-b border-gray-500 sm:pb-5" >Saldo</h4>
-          <h4 className="col-span-1 row-span-1 p-5 pb-0 text-2xl font-bold text-center text-gray-500 sm:pb-5" >Total</h4>
-          <h1 className="col-span-1 row-span-2 p-5 pb-0 font-bold text-center text-gray-300 text-7xl sm:pb-5" >${saldo && !isNaN(saldo) ? parseInt(saldo).toLocaleString('de-DE') : '000'}</h1>
-        <div className='col-span-1 row-span-1 p-5 pb-0'>
-        
-      
-          <input
-            type='text'
-            placeholder="monto"
-            className="block w-full px-3 py-2 mt-1 text-sm bg-white border rounded-md shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
-            maxLength="6"
-            
-            {...register(
-              'text5',{
-                validate: value => !isNaN(value) || "Este campo debe ser numérico"
+            <div className="mb-4">
+              <label className="block pb-1 mb-1 text-lg font-medium text-zinc-500">DNI</label>
+              <input
+                type="number"
+                className="w-full border-solid border-2 border-zinc-300 rounded-xl focus:outline-none focus:border-[#007abe] focus:ring-1 focus:ring-[#007abe] p-2"
+                placeholder="DNI"
+                {...register('dni', clientRegistered.modo==1 ? {required:false}:{ required: true })}
+              />
+              {errors.dni && <span className="text-red-600"> *Este campo es requerido</span>}
+            </div>
+            <div className="mb-4">
+              <label className="block pb-1 mb-1 text-lg font-medium text-zinc-500">Email</label>
+              <input
+                type="text"
+                className="w-full border-solid border-2 border-zinc-300 rounded-xl focus:outline-none focus:border-[#007abe] focus:ring-1 focus:ring-[#007abe] p-2"
+                placeholder="Email"
+                {...register('email', clientRegistered.modo==1 ? {required:false}:{ required: true })}
+              />
+              {errors.email && <span className="text-red-600"> *Este campo es requerido</span>}
+            </div>
+            <div className="mb-4">
+              <label className="block pb-1 mb-1 text-lg font-medium text-zinc-500">Contraseña</label>
+              <input
+                type="password"
+                className="w-full border-solid border-2 border-zinc-300 rounded-xl focus:outline-none focus:border-[#007abe] focus:ring-1 focus:ring-[#007abe] p-2"
+                placeholder="Contraseña"
+                {...register('password', clientRegistered.modo==1 ? {required:false}:{ required: true })}
+              />
+              {errors.password && <span className="text-red-600"> *Este campo es requerido</span>}
+            </div>
+            <div className="flex justify-end md:mt-9">
+              {clientRegistered.modo==1 ?
+              <button type="submit" className="bg-[#00be2f] hover:bg-[#00be09] font-medium text-white mt-8 py-3 px-9 rounded-full">Actualizar</button>
+              :
+              <button type="submit" className="bg-[#007abe] hover:bg-[#005b8e] font-medium text-white mt-8 py-3 px-9 rounded-full">Guardar</button>
               }
-            )}
-          />
-          <p className="text-red-500">{errors.text5?.message}</p>
-            
+            </div>
           </div>
-          <div className="flex flex-row justify-start col-span-1 row-span-1">
-          <button className='self-start px-5 py-3 m-4 bg-green-600 rounded-3xl active:bg-green-800' type='submit'>
-          Actualizar
-          </button>
-          </div>
-          </div> */}
-          
-      </form>
-      
-    </div>
-        </>
-    )
+        </div>
+      </form >
+    </div >
+  )
 }
 
 export default ClientForm
