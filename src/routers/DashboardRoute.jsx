@@ -11,7 +11,7 @@ import ValidatePayment from '../components/seller/ValidatePayment';
 import RegisterPayment from '../components/seller/RegisterPayment';
 import { AuthContext } from '../context/AuthContext';
 import { useContext } from 'react';
-import PurchaseList from '../Components/client/PurchaseList';
+import PaymentScreen from '../components/seller/PaymentScreen';
 
 export const DashboardRoute = () => {
 
@@ -35,8 +35,8 @@ export const DashboardRoute = () => {
           : <>
             <Navbar navegation={["ventas","cobros"]}/>
             <Routes>
-                <Route path="cobros" element={<GeneratePayment />} />
-                {/* <Route path="cobros" element={< />} /> */}
+                <Route path="ventas" element={<SalesList />} />
+                <Route path="cobros" element={<PaymentScreen />} />
             </Routes>
           </>
           
