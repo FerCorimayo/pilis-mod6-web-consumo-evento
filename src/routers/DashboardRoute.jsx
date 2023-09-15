@@ -11,6 +11,7 @@ import ValidatePayment from '../components/seller/ValidatePayment';
 import RegisterPayment from '../components/seller/RegisterPayment';
 import { AuthContext } from '../context/AuthContext';
 import { useContext } from 'react';
+import PurchaseList from '../Components/client/PurchaseList';
 
 export const DashboardRoute = () => {
 

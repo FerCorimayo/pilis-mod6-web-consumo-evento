@@ -112,7 +112,9 @@ const ClientList = () => {
               <NavLink to="/clientes/balance">
                 <FaDollarSign className="w-5 h-auto mx-1 text-yellow-500 cursor-pointer hover:text-yellow-400" onClick={() => userSelectedTopUp(item)}/>
               </NavLink>
-              <HiEye className="w-5 h-auto mx-1 cursor-pointer text-emerald-500 hover:text-emerald-400" onClick={() => userSelectedView(item)}/>
+              <NavLink to="/clientes/compras">
+                <HiEye className="w-5 h-auto mx-1 cursor-pointer text-emerald-500 hover:text-emerald-400" onClick={() => userSelectedView(item)}/>
+              </NavLink>
               <NavLink to="/clientes/nuevo">
                 <HiPencil className="w-5 h-auto mx-1 cursor-pointer text-sky-500 hover:text-sky-400" onClick={() => userSelectedEdit(item)}/>
               </NavLink>
