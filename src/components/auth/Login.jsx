@@ -2,18 +2,23 @@ import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { FaUser } from "react-icons/fa";
 import { AuthContext } from "../../context/AuthContext";
-import { useNavigate } from "react-router-dom";
 import { startLogin } from "../../helpers/auth";
+import Swal from 'sweetalert2';
 
 export const Login = () => {
 
   const { setCurrentUser } = useContext(AuthContext)
   const { register, handleSubmit, formState: { errors } } = useForm();
-  const navigate = useNavigate()
  
   const handleLoginSubmit = async (data) => {
     const user = await startLogin(data.email, data.password)
-    setCurrentUser(user)
+    if(user){
+      if(user.role=='client'){
+        Swal.fire('Error', 'Este usuario no es Vendedor', 'error');
+      }else{
+        setCurrentUser(user)
+      }
+    }
   }
 
   return (

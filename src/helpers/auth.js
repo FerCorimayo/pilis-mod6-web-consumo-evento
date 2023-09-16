@@ -1,4 +1,4 @@
-import { fetchWithoutToken, fetchWithToken } from '../api/enpoints';
+import { fetchWithoutToken } from '../api/enpoints';
 import Swal from 'sweetalert2';
 import jwt_decode from "jwt-decode";
 
@@ -7,7 +7,7 @@ export const startLogin = async (email, password) =>{
     const body = await resp.json();
 
     if (resp.status == 400) {
-        Swal.fire('Error', body.msg, 'error');
+        Swal.fire('Error', body.message, 'error');
     }
     if (resp.status == 201) {
         try {

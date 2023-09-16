@@ -39,13 +39,13 @@ const PurchaseList = () => {
         {
           salesList.length === 0 ?
             (
-              <div>
+              <div className="overflow-auto rounded-lg shadow">
                 <div className="table w-full p-2 mt-12">
-                  <div className="table-cell text-center font-bold text-xl text-zinc-500 border-solid border-b-2 border-gray-400 pb-2">Orden</div>
-                  <div className="table-cell text-center font-bold text-xl text-zinc-500 border-solid border-b-2 border-gray-400">Vendedor</div>
-                  <div className="table-cell text-center font-bold text-xl text-zinc-500 border-solid border-b-2 border-gray-400">Negocio</div>
-                  <div className="table-cell text-center font-bold text-xl text-zinc-500 border-solid border-b-2 border-gray-400">Fecha</div>
-                  <div className="table-cell text-center font-bold text-xl text-zinc-500 border-solid border-b-2 border-gray-400">Monto</div>
+                  <div className="table-cell whitespace-nowrap px-2 text-center font-bold text-xl text-zinc-500 border-solid border-b-2 border-gray-400 pb-2">Orden</div>
+                  <div className="table-cell whitespace-nowrap px-2 text-center font-bold text-xl text-zinc-500 border-solid border-b-2 border-gray-400">Vendedor</div>
+                  <div className="table-cell whitespace-nowrap px-2 text-center font-bold text-xl text-zinc-500 border-solid border-b-2 border-gray-400">Negocio</div>
+                  <div className="table-cell whitespace-nowrap px-2 text-center font-bold text-xl text-zinc-500 border-solid border-b-2 border-gray-400">Fecha</div>
+                  <div className="table-cell whitespace-nowrap px-2 text-center font-bold text-xl text-zinc-500 border-solid border-b-2 border-gray-400">Monto</div>
                 </div>
                 <div className="flex justify-center items-center mt-16">
                   <div className="text-center font-semibold text-2xl text-zinc-400 pt-3 pb-3">
@@ -56,26 +56,28 @@ const PurchaseList = () => {
             )
           :
             (
-              <div className="table w-full p-2 mt-10">
-                <div className="table-row">
-                  <div className="table-cell text-center font-bold text-xl text-zinc-500 border-solid border-b-2 border-gray-400 pb-2">Orden</div>
-                  <div className="table-cell text-center font-bold text-xl text-zinc-500 border-solid border-b-2 border-gray-400">Vendedor</div>
-                  <div className="table-cell text-center font-bold text-xl text-zinc-500 border-solid border-b-2 border-gray-400">Negocio</div>
-                  <div className="table-cell text-center font-bold text-xl text-zinc-500 border-solid border-b-2 border-gray-400">Fecha</div>
-                  <div className="table-cell text-center font-bold text-xl text-zinc-500 border-solid border-b-2 border-gray-400">Monto</div>
-                </div>
-                <div className="table-row-group">
-                  {
-                    salesList.map((sales, index) => (
-                      <div className="table-row" key={index}>
-                        <div className="table-cell text-center font-semibold text-md text-zinc-400 border-solid border-b-2 border-gray-500 pt-3 pb-3">{ sales.id }</div>
-                        <div className="table-cell text-center font-semibold text-md text-zinc-400 border-solid border-b-2 border-gray-500 pt-3 pb-3">{ sales.business.user.fullname }</div>
-                        <div className="table-cell text-center font-semibold text-md text-zinc-400 border-solid border-b-2 border-gray-500 pt-3 pb-3">{ sales.business.name }</div>
-                        <div className="table-cell text-center font-semibold text-md text-zinc-400 border-solid border-b-2 border-gray-500 pt-3 pb-3">{ moment.utc(sales.date).format('DD/MM/yyyy HH:mm:ss') }</div>
-                        <div className="table-cell text-center font-semibold text-md text-zinc-400 border-solid border-b-2 border-gray-500 pt-3 pb-3">{ sales.amount }</div>
-                      </div>
-                    ))
-                  }
+              <div className="overflow-auto rounded-lg shadow">
+                <div className="table w-full p-2 mt-10">
+                  <div className="table-row">
+                    <div className="table-cell whitespace-nowrap px-2 text-center font-bold text-xl text-zinc-500 border-solid border-b-2 border-gray-400 pb-2">Orden</div>
+                    <div className="table-cell whitespace-nowrap px-2 text-center font-bold text-xl text-zinc-500 border-solid border-b-2 border-gray-400">Vendedor</div>
+                    <div className="table-cell whitespace-nowrap px-2 text-center font-bold text-xl text-zinc-500 border-solid border-b-2 border-gray-400">Negocio</div>
+                    <div className="table-cell whitespace-nowrap px-2 text-center font-bold text-xl text-zinc-500 border-solid border-b-2 border-gray-400">Fecha</div>
+                    <div className="table-cell whitespace-nowrap px-2 text-center font-bold text-xl text-zinc-500 border-solid border-b-2 border-gray-400">Monto</div>
+                  </div>
+                  <div className="table-row-group">
+                    {
+                      salesList.map((sales, index) => (
+                        <div className="table-row" key={index}>
+                          <div className="table-cell whitespace-nowrap px-2 text-center font-semibold text-md text-zinc-400 border-solid border-b-2 border-gray-500 pt-3 pb-3">{ sales.id }</div>
+                          <div className="table-cell whitespace-nowrap px-2 text-center font-semibold text-md text-zinc-400 border-solid border-b-2 border-gray-500 pt-3 pb-3">{ sales.business.user.fullname }</div>
+                          <div className="table-cell whitespace-nowrap px-2 text-center font-semibold text-md text-zinc-400 border-solid border-b-2 border-gray-500 pt-3 pb-3">{ sales.business.name }</div>
+                          <div className="table-cell whitespace-nowrap px-2 text-center font-semibold text-md text-zinc-400 border-solid border-b-2 border-gray-500 pt-3 pb-3">{ moment.utc(sales.date).format('DD/MM/yyyy HH:mm:ss') }</div>
+                          <div className="table-cell whitespace-nowrap px-2 text-center font-semibold text-md text-zinc-400 border-solid border-b-2 border-gray-500 pt-3 pb-3">{ sales.amount }</div>
+                        </div>
+                      ))
+                    }
+                  </div>
                 </div>
               </div>
             )

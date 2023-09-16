@@ -55,7 +55,7 @@ const RegisterPayment = () => {
           <span className="pr-3 text-3xl font-medium text-zinc-500">{currentPayment?currentPayment.user_client.dni:''}</span>
         </div>
         <div className="flex justify-between mt-7">
-          <p className="pb-1 mb-1 text-3xl font-medium text-zinc-400">Compra de</p>
+          <p className="pb-1 mb-1 text-3xl font-medium text-zinc-400">Compra</p>
           <span className="pr-3 text-3xl font-medium text-zinc-500">{currentPayment?currentPayment.business.type:''}</span>
         </div>
         <div className="mt-20">

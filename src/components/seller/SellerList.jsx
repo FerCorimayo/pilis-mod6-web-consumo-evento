@@ -77,7 +77,7 @@ const SellerList = () => {
         </div>
       </div>
       <div className="flex justify-between w-full">
-        <form className="w-3/12 p-2 bg-white border-2 border-solid rounded-full border-zinc-300">
+        <form className="w-3/12 p-2 bg-white border-2 border-solid rounded-full border-zinc-300 max-sm:hidden">
           <div className="inline-block w-full">
             <button className="w-1/12 pl-1">
               <HiOutlineSearch className="w-6 text-zinc-500" />
@@ -89,32 +89,34 @@ const SellerList = () => {
             <button className="bg-[#007abe] hover:bg-[#005b8e] font-medium text-white px-8 py-2 rounded-full block">Nuevo Vendedor</button>
         </NavLink>
       </div>
-      <div className="table w-full p-2 mt-10">
-        <div className="table-header-group">
-          <div className="table-row">
-            <div className="table-cell pb-2 text-xl font-bold text-center border-b-2 border-gray-400 border-solid text-zinc-500">ID</div>
-            <div className="table-cell text-xl font-bold text-center border-b-2 border-gray-400 border-solid text-zinc-500">Puesto</div>
-            <div className="table-cell text-xl font-bold text-center border-b-2 border-gray-400 border-solid text-zinc-500">Nombre del negocio</div>
-            <div className="table-cell text-xl font-bold text-center border-b-2 border-gray-400 border-solid text-zinc-500">Tipo</div>
-            <div className="table-cell text-xl font-bold text-center border-b-2 border-gray-400 border-solid text-zinc-500">Encargado</div>
-            <div className="table-cell text-xl font-bold text-center border-b-2 border-gray-400 border-solid text-zinc-500"></div>
-          </div>
-        </div>
-        <div className="table-row-group">
-          {filteredSellers.map((seller) => (
-            <div className="table-row" key={seller.id}>
-              <div className="table-cell pt-3 pb-3 font-semibold text-center border-b-2 border-gray-500 border-solid text-md text-zinc-400">{seller.id}</div>
-              <div className="table-cell pt-3 pb-3 font-semibold text-center border-b-2 border-gray-500 border-solid text-md text-zinc-400">{seller.location}</div>
-              <div className="table-cell pt-3 pb-3 font-semibold text-center border-b-2 border-gray-500 border-solid text-md text-zinc-400">{seller.name}</div>
-              <div className="table-cell pt-3 pb-3 font-semibold text-center border-b-2 border-gray-500 border-solid text-md text-zinc-400">{seller.type}</div>
-              <div className="table-cell pt-3 pb-3 font-semibold text-center border-b-2 border-gray-500 border-solid text-md text-zinc-400">{seller.user.fullname}</div>
-              <div className="flex justify-end pt-3 pb-5 mr-3 border-b-2 border-gray-500 border-solid">
-                <HiEye className="w-5 h-auto mx-1 cursor-pointer text-emerald-500 hover:text-emerald-400" onClick={() => handleDetail(seller)}/>
-                <HiPencil className="w-5 h-auto mx-1 cursor-pointer text-sky-500 hover:text-sky-400" onClick={() => handleUpdate(seller)}/>
-                <FaTrash className="w-5 h-auto ml-1 cursor-pointer text-rose-500 hover:text-rose-400" onClick={() => handleDelete(seller)}/>
-              </div>
+      <div className="overflow-auto rounded-lg shadow">
+        <div className="table w-full p-2 mt-10">
+          <div className="table-header-group">
+            <div className="table-row">
+              <div className="table-cell whitespace-nowrap pb-2 text-xl font-bold text-center border-b-2 border-gray-400 border-solid text-zinc-500">ID</div>
+              <div className="table-cell whitespace-nowrap px-2 text-xl font-bold text-center border-b-2 border-gray-400 border-solid text-zinc-500">Puesto</div>
+              <div className="table-cell whitespace-nowrap px-2 text-xl font-bold text-center border-b-2 border-gray-400 border-solid text-zinc-500">Nombre del negocio</div>
+              <div className="table-cell whitespace-nowrap px-2 text-xl font-bold text-center border-b-2 border-gray-400 border-solid text-zinc-500">Tipo</div>
+              <div className="table-cell whitespace-nowrap px-2 text-xl font-bold text-center border-b-2 border-gray-400 border-solid text-zinc-500">Encargado</div>
+              <div className="table-cell whitespace-nowrap text-xl font-bold text-center border-b-2 border-gray-400 border-solid text-zinc-500"></div>
             </div>
-          ))}
+          </div>
+          <div className="table-row-group">
+            {filteredSellers.map((seller) => (
+              <div className="table-row" key={seller.id}>
+                <div className="table-cell whitespace-nowrap  pt-3 pb-3 font-semibold text-center border-b-2 border-gray-500 border-solid text-md text-zinc-400">{seller.id}</div>
+                <div className="table-cell whitespace-nowrap px-2 pt-3 pb-3 font-semibold text-center border-b-2 border-gray-500 border-solid text-md text-zinc-400">{seller.location}</div>
+                <div className="table-cell whitespace-nowrap px-2 pt-3 pb-3 font-semibold text-center border-b-2 border-gray-500 border-solid text-md text-zinc-400">{seller.name}</div>
+                <div className="table-cell whitespace-nowrap px-2 pt-3 pb-3 font-semibold text-center border-b-2 border-gray-500 border-solid text-md text-zinc-400">{seller.type}</div>
+                <div className="table-cell whitespace-nowrap px-2 pt-3 pb-3 font-semibold text-center border-b-2 border-gray-500 border-solid text-md text-zinc-400">{seller.user.fullname}</div>
+                <div className="flex whitespace-nowrap justify-end pt-3 pb-5 pr-3 border-b-2 border-gray-500 border-solid">
+                  <HiEye className="w-5 h-auto mx-1 cursor-pointer text-emerald-500 hover:text-emerald-400" onClick={() => handleDetail(seller)}/>
+                  <HiPencil className="w-5 h-auto mx-1 cursor-pointer text-sky-500 hover:text-sky-400" onClick={() => handleUpdate(seller)}/>
+                  <FaTrash className="w-5 h-auto ml-1 cursor-pointer text-rose-500 hover:text-rose-400" onClick={() => handleDelete(seller)}/>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>

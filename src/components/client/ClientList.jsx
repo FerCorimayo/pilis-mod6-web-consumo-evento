@@ -77,7 +77,7 @@ const ClientList = () => {
       </div>
     </div>
     <div className="flex justify-between w-full">
-      <form className="w-3/12 p-2 bg-white border-2 border-solid rounded-full border-zinc-300">
+      <form className="w-3/12 p-2 bg-white border-2 border-solid rounded-full border-zinc-300 max-sm:hidden">
         <div className="inline-block w-full">
           <button className="w-1/12 pl-1">
             <HiOutlineSearch className="w-6 text-zinc-500" />
@@ -89,39 +89,41 @@ const ClientList = () => {
           <button className="bg-[#007abe] hover:bg-[#005b8e] font-medium text-white px-8 py-2 rounded-full block" onClick={() => userNull()}>Nuevo Cliente</button>
       </NavLink>
     </div>
-    <div className="table w-full p-2 mt-10">
-      <div className="table-header-group">
-        <div className="table-row">
-          <div className="table-cell pb-2 text-xl font-bold text-center border-b-2 border-gray-400 border-solid text-zinc-500">ID</div>
-          <div className="table-cell text-xl font-bold text-center border-b-2 border-gray-400 border-solid text-zinc-500">DNI</div>
-          <div className="table-cell text-xl font-bold text-center border-b-2 border-gray-400 border-solid text-zinc-500">Nombre</div>
-          <div className="table-cell text-xl font-bold text-center border-b-2 border-gray-400 border-solid text-zinc-500">Email</div>
-          <div className="table-cell text-xl font-bold text-center border-b-2 border-gray-400 border-solid text-zinc-500">Saldo</div>
-          <div className="table-cell text-xl font-bold text-center border-b-2 border-gray-400 border-solid text-zinc-500"></div>
-        </div>
-      </div>
-      <div className="table-row-group">
-        {filteredClients.map((item) => (
-          <div className="table-row" key={item.id}>
-            <div className="table-cell pt-3 pb-3 font-semibold text-center border-b-2 border-gray-500 border-solid text-md text-zinc-400">{item.user.id}</div>
-            <div className="table-cell pt-3 pb-3 font-semibold text-center border-b-2 border-gray-500 border-solid text-md text-zinc-400">{item.user.dni}</div>
-            <div className="table-cell pt-3 pb-3 font-semibold text-center border-b-2 border-gray-500 border-solid text-md text-zinc-400">{item.user.fullname}</div>
-            <div className="table-cell pt-3 pb-3 font-semibold text-center border-b-2 border-gray-500 border-solid text-md text-zinc-400">{item.user.email}</div>
-            <div className="table-cell pt-3 pb-3 font-semibold text-center border-b-2 border-gray-500 border-solid text-md text-zinc-400">{item.balance}</div>
-            <div className="flex justify-end pt-3 pb-5 mr-3 border-b-2 border-gray-500 border-solid">
-              <NavLink to="/clientes/balance">
-                <FaDollarSign className="w-5 h-auto mx-1 text-yellow-500 cursor-pointer hover:text-yellow-400" onClick={() => userSelectedTopUp(item)}/>
-              </NavLink>
-              <NavLink to="/clientes/compras">
-                <HiEye className="w-5 h-auto mx-1 cursor-pointer text-emerald-500 hover:text-emerald-400" onClick={() => userSelectedView(item)}/>
-              </NavLink>
-              <NavLink to="/clientes/nuevo">
-                <HiPencil className="w-5 h-auto mx-1 cursor-pointer text-sky-500 hover:text-sky-400" onClick={() => userSelectedEdit(item)}/>
-              </NavLink>
-              <FaTrash className="w-5 h-auto ml-1 cursor-pointer text-rose-500 hover:text-rose-400" onClick={() => handleDelete(item)}/>
-            </div>
+    <div className="overflow-auto rounded-lg shadow">
+      <div className="table w-full p-2 mt-10">
+        <div className="table-header-group">
+          <div className="table-row">
+            <div className="table-cell whitespace-nowrap pb-2 text-xl font-bold text-center border-b-2 border-gray-400 border-solid text-zinc-500">ID</div>
+            <div className="table-cell whitespace-nowrap px-2 text-xl font-bold text-center border-b-2 border-gray-400 border-solid text-zinc-500">DNI</div>
+            <div className="table-cell whitespace-nowrap px-2 text-xl font-bold text-center border-b-2 border-gray-400 border-solid text-zinc-500">Nombre</div>
+            <div className="table-cell whitespace-nowrap px-2 text-xl font-bold text-center border-b-2 border-gray-400 border-solid text-zinc-500">Email</div>
+            <div className="table-cell whitespace-nowrap px-2 text-xl font-bold text-center border-b-2 border-gray-400 border-solid text-zinc-500">Saldo</div>
+            <div className="table-cell whitespace-nowrap text-xl font-bold text-center border-b-2 border-gray-400 border-solid text-zinc-500"></div>
           </div>
-        ))}
+        </div>
+        <div className="table-row-group">
+          {filteredClients.map((item) => (
+            <div className="table-row" key={item.id}>
+              <div className="table-cell whitespace-nowrap pt-3 pb-3 font-semibold text-center border-b-2 border-gray-500 border-solid text-md text-zinc-400">{item.user.id}</div>
+              <div className="table-cell whitespace-nowrap px-2 pt-3 pb-3 font-semibold text-center border-b-2 border-gray-500 border-solid text-md text-zinc-400">{item.user.dni}</div>
+              <div className="table-cell whitespace-nowrap px-2 pt-3 pb-3 font-semibold text-center border-b-2 border-gray-500 border-solid text-md text-zinc-400">{item.user.fullname}</div>
+              <div className="table-cell whitespace-nowrap px-2 pt-3 pb-3 font-semibold text-center border-b-2 border-gray-500 border-solid text-md text-zinc-400">{item.user.email}</div>
+              <div className="table-cell whitespace-nowrap px-2 pt-3 pb-3 font-semibold text-center border-b-2 border-gray-500 border-solid text-md text-zinc-400">{item.balance}</div>
+              <div className="flex whitespace-nowrap justify-end pt-3 pb-5 pr-3 border-b-2 border-gray-500 border-solid">
+                <NavLink to="/clientes/balance">
+                  <FaDollarSign className="w-5 h-auto mx-1 text-yellow-500 cursor-pointer hover:text-yellow-400" onClick={() => userSelectedTopUp(item)}/>
+                </NavLink>
+                <NavLink to="/clientes/compras">
+                  <HiEye className="w-5 h-auto mx-1 cursor-pointer text-emerald-500 hover:text-emerald-400" onClick={() => userSelectedView(item)}/>
+                </NavLink>
+                <NavLink to="/clientes/nuevo">
+                  <HiPencil className="w-5 h-auto mx-1 cursor-pointer text-sky-500 hover:text-sky-400" onClick={() => userSelectedEdit(item)}/>
+                </NavLink>
+                <FaTrash className="w-5 h-auto ml-1 cursor-pointer text-rose-500 hover:text-rose-400" onClick={() => handleDelete(item)}/>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
     </div>

@@ -69,7 +69,7 @@ const SalesList = () => {
                   </div>
                 </div>
                 <div className="flex justify-between w-full">
-                  <form className="w-3/12 p-2 bg-white border-2 border-solid rounded-full border-zinc-300">
+                  <form className="w-3/12 p-2 bg-white border-2 border-solid rounded-full border-zinc-300 max-sm:hidden">
                     <div className="inline-block w-full">
                       <button className="w-1/12 pl-1">
                         <HiOutlineSearch className="w-6 text-zinc-500" />
@@ -84,13 +84,13 @@ const SalesList = () => {
         {
           salesList.length === 0 ?
             (
-              <div>
+              <div className="overflow-auto rounded-lg shadow">
                 <div className="table w-full p-2 mt-12">
-                  <div className="table-cell text-center font-bold text-xl text-zinc-500 border-solid border-b-2 border-gray-400 pb-2">Orden</div>
-                  <div className="table-cell text-center font-bold text-xl text-zinc-500 border-solid border-b-2 border-gray-400">Cliente</div>
-                  <div className="table-cell text-center font-bold text-xl text-zinc-500 border-solid border-b-2 border-gray-400">DNI</div>
-                  <div className="table-cell text-center font-bold text-xl text-zinc-500 border-solid border-b-2 border-gray-400">Fecha</div>
-                  <div className="table-cell text-center font-bold text-xl text-zinc-500 border-solid border-b-2 border-gray-400">Monto</div>
+                  <div className="table-cell whitespace-nowrap px-2 text-center font-bold text-xl text-zinc-500 border-solid border-b-2 border-gray-400 pb-2">Orden</div>
+                  <div className="table-cell whitespace-nowrap px-2 text-center font-bold text-xl text-zinc-500 border-solid border-b-2 border-gray-400">Cliente</div>
+                  <div className="table-cell whitespace-nowrap px-2 text-center font-bold text-xl text-zinc-500 border-solid border-b-2 border-gray-400">DNI</div>
+                  <div className="table-cell whitespace-nowrap px-2 text-center font-bold text-xl text-zinc-500 border-solid border-b-2 border-gray-400">Fecha</div>
+                  <div className="table-cell whitespace-nowrap px-2 text-center font-bold text-xl text-zinc-500 border-solid border-b-2 border-gray-400">Monto</div>
                 </div>
                 <div className="flex justify-center items-center mt-16">
                   <div className="text-center font-semibold text-2xl text-zinc-400 pt-3 pb-3">
@@ -101,26 +101,28 @@ const SalesList = () => {
             )
             :
             (
-              <div className="table w-full p-2 mt-10">
-                <div className="table-row">
-                  <div className="table-cell text-center font-bold text-xl text-zinc-500 border-solid border-b-2 border-gray-400 pb-2">Orden</div>
-                  <div className="table-cell text-center font-bold text-xl text-zinc-500 border-solid border-b-2 border-gray-400">Cliente</div>
-                  <div className="table-cell text-center font-bold text-xl text-zinc-500 border-solid border-b-2 border-gray-400">DNI</div>
-                  <div className="table-cell text-center font-bold text-xl text-zinc-500 border-solid border-b-2 border-gray-400">Fecha</div>
-                  <div className="table-cell text-center font-bold text-xl text-zinc-500 border-solid border-b-2 border-gray-400">Monto</div>
-                </div>
-                <div className="table-row-group">
-                  {
-                    filteredClients.map((sales, index) => (
-                      <div className="table-row" key={index}>
-                        <div className="table-cell text-center font-semibold text-md text-zinc-400 border-solid border-b-2 border-gray-500 pt-3 pb-3">{ sales.id }</div>
-                        <div className="table-cell text-center font-semibold text-md text-zinc-400 border-solid border-b-2 border-gray-500 pt-3 pb-3">{ sales.wallet.user.fullname }</div>
-                        <div className="table-cell text-center font-semibold text-md text-zinc-400 border-solid border-b-2 border-gray-500 pt-3 pb-3">{ sales.wallet.user.dni }</div>
-                        <div className="table-cell text-center font-semibold text-md text-zinc-400 border-solid border-b-2 border-gray-500 pt-3 pb-3">{ moment.utc(sales.date).format('DD/MM/yyyy HH:mm:ss') }</div>
-                        <div className="table-cell text-center font-semibold text-md text-zinc-400 border-solid border-b-2 border-gray-500 pt-3 pb-3">{ sales.amount }</div>
-                      </div>
-                    ))
-                  }
+              <div className="overflow-auto rounded-lg shadow">
+                <div className="table w-full p-2 mt-10">
+                  <div className="table-row">
+                    <div className="table-cell whitespace-nowrap px-2 text-center font-bold text-xl text-zinc-500 border-solid border-b-2 border-gray-400 pb-2">Orden</div>
+                    <div className="table-cell whitespace-nowrap px-2 text-center font-bold text-xl text-zinc-500 border-solid border-b-2 border-gray-400">Cliente</div>
+                    <div className="table-cell whitespace-nowrap px-2 text-center font-bold text-xl text-zinc-500 border-solid border-b-2 border-gray-400">DNI</div>
+                    <div className="table-cell whitespace-nowrap px-2 text-center font-bold text-xl text-zinc-500 border-solid border-b-2 border-gray-400">Fecha</div>
+                    <div className="table-cell whitespace-nowrap px-2 text-center font-bold text-xl text-zinc-500 border-solid border-b-2 border-gray-400">Monto</div>
+                  </div>
+                  <div className="table-row-group">
+                    {
+                      filteredClients.map((sales, index) => (
+                        <div className="table-row" key={index}>
+                          <div className="table-cell whitespace-nowrap px-2 text-center font-semibold text-md text-zinc-400 border-solid border-b-2 border-gray-500 pt-3 pb-3">{ sales.id }</div>
+                          <div className="table-cell whitespace-nowrap px-2 text-center font-semibold text-md text-zinc-400 border-solid border-b-2 border-gray-500 pt-3 pb-3">{ sales.wallet.user.fullname }</div>
+                          <div className="table-cell whitespace-nowrap px-2 text-center font-semibold text-md text-zinc-400 border-solid border-b-2 border-gray-500 pt-3 pb-3">{ sales.wallet.user.dni }</div>
+                          <div className="table-cell whitespace-nowrap px-2 text-center font-semibold text-md text-zinc-400 border-solid border-b-2 border-gray-500 pt-3 pb-3">{ moment.utc(sales.date).format('DD/MM/yyyy HH:mm:ss') }</div>
+                          <div className="table-cell whitespace-nowrap px-2 text-center font-semibold text-md text-zinc-400 border-solid border-b-2 border-gray-500 pt-3 pb-3">{ sales.amount }</div>
+                        </div>
+                      ))
+                    }
+                  </div>
                 </div>
               </div>
             )
