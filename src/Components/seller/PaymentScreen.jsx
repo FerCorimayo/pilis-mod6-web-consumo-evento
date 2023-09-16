@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect } from 'react'
 import GeneratePayment from './GeneratePayment';
 import { PaymentContext } from '../../context/PaymentContext';
 import ValidatePayment from './ValidatePayment';
@@ -14,8 +14,10 @@ const PaymentScreen = () => {
             amount: 0,
             id_business: null,
             id_wallet: null,
-            user_client: null
+            user_client: null,
+            business: null
         })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
       
   return (

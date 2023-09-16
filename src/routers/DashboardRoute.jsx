@@ -6,9 +6,9 @@ import SalesList from '../components/seller/SalesList';
 import ClientList from '../components/client/ClientList';
 import ClientForm from '../components/client/ClientForm';
 import ClientBalance from '../components/client/ClientBalance';
-import GeneratePayment from '../components/seller/GeneratePayment';
-import ValidatePayment from '../components/seller/ValidatePayment';
-import RegisterPayment from '../components/seller/RegisterPayment';
+// import GeneratePayment from '../components/seller/GeneratePayment';
+// import ValidatePayment from '../components/seller/ValidatePayment';
+import PurchaseList from '../components/client/PurchaseList';
 import { AuthContext } from '../context/AuthContext';
 import { useContext } from 'react';
 import PaymentScreen from '../components/seller/PaymentScreen';
@@ -30,6 +30,7 @@ export const DashboardRoute = () => {
                 <Route path="clientes" element={<ClientList />} />
                 <Route path="clientes/nuevo" element={<ClientForm />} />
                 <Route path="clientes/balance" element={<ClientBalance />} />
+                <Route path="clientes/compras" element={<PurchaseList />} />
               </Routes>
           </>
           : <>
@@ -39,7 +40,6 @@ export const DashboardRoute = () => {
                 <Route path="cobros" element={<PaymentScreen />} />
             </Routes>
           </>
-          
     }
     </>
   )
