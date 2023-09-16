@@ -5,6 +5,16 @@ export const listSeller = async () =>{
     const body = await resp.json();
     return body;
 }
+export const listTransactionsSeller = async (id) =>{
+    const resp = await fetchWithToken(`transactions?business=${id}`);
+    const body = await resp.json();
+    return body;
+}
+export const listBusinessSeller = async (id) =>{
+    const resp = await fetchWithToken(`business?user=${id}`);
+    const body = await resp.json();
+    return body;
+}
 export const createSeller = async (seller) =>{
     const resp = await fetchWithToken('users', seller, 'POST');
     const body = await resp.json();
