@@ -70,7 +70,7 @@ const SellerList = () => {
   }
 
   return (
-    <div className="h-screen p-4 bg-white rounded-2xl">
+    <section className="h-screen p-4 bg-white rounded-2xl">
       <div className="flex justify-center pb-4">
         <div className="md:pr-10 md:pt-5">
           <p className="text-3xl font-semibold md:text-4xl text-zinc-500">Lista de Vendedores</p>
@@ -119,7 +119,7 @@ const SellerList = () => {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   )
 };
 

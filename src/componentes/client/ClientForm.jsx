@@ -67,7 +67,7 @@ const ClientForm = () => {
   }
 
   return (
-    <div className="p-8 md:h-screen">
+    <section className="p-8 md:h-screen">
       <form className="h-auto p-6 bg-white md:h-full rounded-xl" onSubmit={handleSubmit(onSubmit)}>
         <div className="block md:flex">
           <div className="h-auto bg-white md:w-7/12 md:h-full mx-auto">
@@ -127,7 +127,7 @@ const ClientForm = () => {
           </div>
         </div>
       </form >
-    </div >
+    </section >
   )
 }
 

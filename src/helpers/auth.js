@@ -13,11 +13,12 @@ export const startLogin = async (email, password) =>{
         try {
             localStorage.setItem('token', body.credentials.token);
             localStorage.setItem('refreshToken', body.credentials.refreshToken);
-            const {id, fullname, role} = jwt_decode(body.credentials.token);
+            const {id, fullname, role, email} = jwt_decode(body.credentials.token);
             return {
                 id,
                 fullname,
-                role
+                role,
+                email,
             }
         } catch (error) {
             console.error('Error al decodificar el token:', error);

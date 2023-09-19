@@ -31,7 +31,7 @@ const PurchaseList = () => {
 
   return (
     <>
-      <div className="p-4 bg-white md:w-11/12 h-screen rounded-2xl md:mt-5 md:mx-auto">
+      <section className="p-4 bg-white md:w-11/12 h-screen rounded-2xl md:mt-5 md:mx-auto">
         <div className="md:px-5 md:pt-5 flex justify-between">
           <FaChevronLeft className="w-5 h-auto mx-1 cursor-pointer text-zinc-500 hover:text-zinc-400" onClick={()=>(navigate('/clientes'))} />
           <p className="text-3xl md:text-4xl font-semibold text-zinc-500">Compras Realizadas</p>
@@ -82,7 +82,7 @@ const PurchaseList = () => {
               </div>
             )
         }
-      </div>
+      </section>
     </>
   )
 }

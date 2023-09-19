@@ -32,7 +32,7 @@ const ClientBalance = () => {
     }).catch((error) => {console.error('Error:', error)});
   }
   return (
-    <div className="p-8 md:h-screen">
+    <section className="p-8 md:h-screen">
       <form onSubmit={handleSubmit(onSubmit)} className="h-auto p-6 bg-white md:h-full rounded-xl">
         <div className="block md:flex">
           <div className="h-auto bg-white md:w-7/12 md:h-full mx-auto">
@@ -63,7 +63,7 @@ const ClientBalance = () => {
           </div>
         </div>
       </form>
-    </div>
+    </section>
   )
 }
 export default ClientBalance

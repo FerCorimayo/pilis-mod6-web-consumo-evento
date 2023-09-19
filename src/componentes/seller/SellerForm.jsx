@@ -2,8 +2,7 @@ import { useForm } from "react-hook-form";
 import { createSeller, createBusiness, updateSeller, updateBusiness } from '../../helpers/seller'
 import { useState, useEffect } from 'react'
 import Swal from 'sweetalert2';
-import { useLocation } from "react-router-dom";
-import { useNavigate  } from 'react-router-dom';
+import { useLocation, useNavigate } from "react-router-dom";
 import { FaChevronLeft } from 'react-icons/fa'
 
 const SellerForm = () => {
@@ -88,7 +87,7 @@ const SellerForm = () => {
 	}
 
 	return (
-		<div className="p-8 md:h-screen">
+		<section className="p-8 md:h-screen">
 			<form className="h-auto p-6 bg-white md:h-full rounded-xl" onSubmit={handleSubmit(onSubmit)}>
 				<div className="block md:flex">
 					<div className="h-auto bg-white md:w-7/12 md:h-full ">
@@ -184,7 +183,7 @@ const SellerForm = () => {
 					}
 				</div>
 			</form >
-		</div >
+		</section >
 	)
 };
 

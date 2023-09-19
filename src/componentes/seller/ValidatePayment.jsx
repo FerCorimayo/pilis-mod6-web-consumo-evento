@@ -31,7 +31,8 @@ const ValidatePayment = () => {
             id_wallet: body_code.wallet.id,
             user_client: {
               fullname: body_code.wallet.user.fullname,
-              dni: body_code.wallet.user.dni
+              dni: body_code.wallet.user.dni,
+              email: body_code.wallet.user.email
             },
             business: {
               name: body_business[0].name,
@@ -45,24 +46,26 @@ const ValidatePayment = () => {
   }
 
   return (
-    <div className="md:w-6/12 h-[37rem] mx-auto mt-5 md:mt-20 p-7 bg-white rounded-2xl">
-      <form className="w-full p-3" onSubmit={handleSubmit(onSubmit)}>
-      <div className="border-b-2 border-solid border-zinc-400 flex justify-start">
-        <FaChevronLeft className="w-5 h-auto mx-1 cursor-pointer text-zinc-500 hover:text-zinc-400" onClick={()=>(setCurrentPayment({step:1}))} />
-        <div className="w-full pt-3 pb-3 text-3xl font-semibold  text-zinc-500">Validar Pago </div>
-      </div>
-        <input 
-          type='number'
-          className='w-full p-2 mt-20 mb-20 text-xl font-medium border-2 border-solid rounded-xl text-zinc-500 border-zinc-400 focus:outline-none focus:border-zinc-500 focus:ring-1 focus:ring-zinc-400'
-          placeholder='Código de Pago'
-          {...register('token', { required: true, min: 1 })}  
-        >
-        </input>
-        <div className="w-full">
-          <button className="w-full bg-[#00C294] hover:bg-[#00C280] font-normal text-xl text-white px-8 py-2 rounded-lg"  type="submit">Verificar Codigo</button>
+    <section className="p-8 md:h-screen">
+      <div className="md:w-6/12 p-6 mx-auto h-auto md:h-full bg-white rounded-2xl">
+        <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
+        <div className="border-b-2 border-solid border-zinc-500 flex justify-start">
+          <FaChevronLeft className="w-5 h-auto mx-1 cursor-pointer text-zinc-500 hover:text-zinc-400" onClick={()=>(setCurrentPayment({...currentPayment, step:1}))} />
+          <div className="w-full pt-3 pb-3 text-3xl font-bold  text-zinc-500">Validar Pago </div>
         </div>
-      </form>
-    </div>
+          <input 
+            type='number'
+            className='w-full p-2 mt-20 mb-20 font-medium border-2 border-solid rounded-xl text-zinc-500 border-zinc-400 focus:outline-none focus:border-zinc-500 focus:ring-1 focus:ring-zinc-400'
+            placeholder='Código de Pago'
+            {...register('token', { required: true, min: 1 })}  
+          >
+          </input>
+          <div className="w-full">
+            <button className="w-full hover:bg-[#00C294] bg-[#00C280] font-medium text-white px-8 py-2 rounded-lg"  type="submit">Verificar Codigo</button>
+          </div>
+        </form>
+      </div>
+    </section>
   );
 };
 
