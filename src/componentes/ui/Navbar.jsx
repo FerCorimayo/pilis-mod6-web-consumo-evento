@@ -68,26 +68,26 @@ const Navbar = ({navegation}) => {
               </div>
             </div>
             <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:ml-6 ">
-              <label className="relative pl-3 flex text-gray-400 items-center">
+              <label className="relative flex text-gray-400 items-center">
                 <p>{currentUser.role=='admin'? 'Administrador':'Vendedor'}</p>
                 <button type="button" className="ml-4 text-sm bg-gray-800 rounded-full focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800" id="user-menu-button" aria-expanded="false" aria-haspopup="true" onClick={() => setIsActive(!isActive)}>
                   <img className="w-8 h-8 rounded-full" src="/src/assets/user_log.png" alt="user-default"/>
                 </button>
               </label>
-              {isActive && (
-                <div ref={divRef} className="absolute mt-48 ml-3 w-40 divide-y rounded-lg dark:bg-slate-600 dark:divide-gray-700" id="user-dropdown">
-                  <div className="px-4 py-3">
-                    <span className="block text-sm text-gray-900 dark:text-white">{currentUser.fullname}</span>
-                    <span className="block text-sm  text-gray-500 truncate dark:text-gray-400">{currentUser.email}</span>
-                  </div>
-                  <ul className="py-2" aria-labelledby="user-menu-button">
-                    <li className='cursor-pointer'>
-                      <a className="flex px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-blue-950 dark:text-gray-200 dark:hover:text-white" onClick={() => handleLogout()}><FaSignOutAlt className='w-5 h-auto mx-1'/>Salir</a>
-                    </li>
-                  </ul>
-                </div>
-              )}
             </div>
+            {isActive && (
+              <div ref={divRef} className="absolute right-0 mt-48 w-40 divide-y rounded-lg dark:bg-slate-600 dark:divide-gray-700" id="user-dropdown">
+                <div className="px-4 py-3">
+                  <span className="block text-sm text-gray-900 dark:text-white">{currentUser.fullname}</span>
+                  <span className="block text-sm  text-gray-500 truncate dark:text-gray-400">{currentUser.email}</span>
+                </div>
+                <ul className="py-2" aria-labelledby="user-menu-button">
+                  <li className='cursor-pointer'>
+                    <a className="flex px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-blue-950 dark:text-gray-200 dark:hover:text-white" onClick={() => handleLogout()}><FaSignOutAlt className='w-5 h-auto mx-1'/>Salir</a>
+                  </li>
+                </ul>
+              </div>
+            )}
           </div>
         </div>
         {nav && (

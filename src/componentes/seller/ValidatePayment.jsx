@@ -46,8 +46,7 @@ const ValidatePayment = () => {
   }
 
   return (
-    <section className="p-8 md:h-screen">
-      <div className="md:w-6/12 p-6 mx-auto h-auto md:h-full bg-white rounded-2xl">
+      <section className="md:w-6/12 p-6 mx-auto md:my-5 md:h-full bg-white rounded-2xl">
         <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
         <div className="border-b-2 border-solid border-zinc-500 flex justify-start">
           <FaChevronLeft className="w-5 h-auto mx-1 cursor-pointer text-zinc-500 hover:text-zinc-400" onClick={()=>(setCurrentPayment({...currentPayment, step:1}))} />
@@ -64,8 +63,7 @@ const ValidatePayment = () => {
             <button className="w-full hover:bg-[#00C294] bg-[#00C280] font-medium text-white px-8 py-2 rounded-lg"  type="submit">Verificar Codigo</button>
           </div>
         </form>
-      </div>
-    </section>
+      </section>
   );
 };
 

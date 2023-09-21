@@ -22,7 +22,7 @@ export const Login = () => {
   }
 
   return (
-    <div className="mx-auto lg:flex">
+    <section className="mx-auto bg-white lg:flex">
       <div className="h-screen mx-auto px-auto sm:w-full md:w-10/12 lg:w-7/12 xl:w-7/12">
         <div className="w-11/12 pt-32 mx-auto md:pt-40 md:w-full xl:w-9/12">
           <h2 className="text-4xl font-bold text-center text-zinc-500 mb-9 sm:text-left">Iniciar Sesión</h2>
@@ -32,7 +32,6 @@ export const Login = () => {
             </div>
             <div className="w-full pl-2 mx-auto sm:w-full md:w-9/12 xl:w-8/12">
               <form
-                // onSubmit={handleSubmit(onSubmit)}
                 onSubmit={handleSubmit(handleLoginSubmit)}
                 className="w-full sm:w-full">
                 <div className="mb-4">
@@ -68,9 +67,9 @@ export const Login = () => {
       </div>
       <div className="w-3/12 bg-[rgb(0,91,142)]">
         <div className="items-center justify-center hidden h-full lg:flex">
-          {/* agregar un logo */}
+          <img className="w-auto h-40" src="/src/assets/log.png" alt="log-event" />
         </div>
       </div>
-    </div>
+    </section>
   );
 };

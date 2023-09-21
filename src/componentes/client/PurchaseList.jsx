@@ -31,8 +31,8 @@ const PurchaseList = () => {
 
   return (
     <>
-      <section className="p-4 bg-white md:w-11/12 h-screen rounded-2xl md:mt-5 md:mx-auto">
-        <div className="md:pt-5 flex justify-between border-b-2 border-solid border-zinc-500 pb-4">
+      <section className="p-4 bg-white md:w-11/12 rounded-2xl md:my-5 md:mx-auto">
+        <div className="flex justify-between border-b-2 border-solid border-zinc-500 pb-4">
           <FaChevronLeft className="w-5 h-auto mx-1 cursor-pointer text-zinc-500 hover:text-zinc-400" onClick={()=>(navigate('/clientes'))} />
           <p className="text-3xl font-bold text-zinc-500">Compras Realizadas</p>
         </div>

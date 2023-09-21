@@ -1,8 +1,27 @@
-# React + Vite
+# Consumo en Evento - Web 🖥 
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Módulo 6: Proyecto front-end - React.
 
-Currently, two official plugins are available:
+Grupo 4: Choque, Cruz, Torrejon, Corimayo, Martinez
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Ejecutar el proyecto 📋
+
+*Setear las variables de entorno copiando del archivo .env.development.template a un nuevo archivo .env
+
+Instalar dependecias
+
+```
+npm install
+```
+
+Correr el proyecto
+
+```
+npm run dev
+```
+## Construido con 🔧
+
+* [React](https://es.react.dev/)
+* [TailwindCSS](https://tailwindcss.com/)
+* [SweetAlert2](https://sweetalert2.github.io/)
+* [React Datepicker](https://reactdatepicker.com/)

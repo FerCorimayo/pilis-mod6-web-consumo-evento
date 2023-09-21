@@ -28,10 +28,9 @@ const GeneratePayment = () => {
   };
   
   return (
-    <section className="p-8 md:h-screen">
-      <div className="md:w-6/12 p-6 mx-auto h-auto md:h-full bg-white rounded-2xl">
+      <section className="md:w-6/12 p-6 mx-auto md:my-5 md:h-full bg-white rounded-2xl">
         <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
-          <div className="flex justify-center pb-3 border-b-2 border-zinc-400">
+          <div className="flex justify-start pb-3 border-b-2 border-zinc-400">
             <p className="pb-1 mb-1 text-3xl font-bold text-zinc-500">Generar Orden</p>
           </div>
           <div className="flex justify-between mt-14 px-2">
@@ -52,13 +51,12 @@ const GeneratePayment = () => {
               <p className="pt-3 text-2xl font-semibold text-zinc-500">Total</p>
               <span className="pt-4 text-2xl font-semibold text-zinc-500">${amount},00</span>
             </div>
-            <div className="flex justify-end md:mt-9">
+            <div className="flex justify-end mt-6">
               <button type="submit" className="bg-[#007abe] hover:bg-[#005b8e] font-medium text-white mt-8 py-3 px-9 rounded-full">Validar Pago</button>
             </div>
           </div>
         </form>
-      </div>
-    </section>
+      </section>
   )
 };
 

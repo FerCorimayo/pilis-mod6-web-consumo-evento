@@ -70,18 +70,16 @@ const SellerList = () => {
   }
 
   return (
-    <section className="h-screen p-4 bg-white rounded-2xl">
+    <section className="p-4 bg-white md:w-11/12 rounded-2xl md:my-5 md:mx-auto">
       <div className="flex justify-center pb-4">
         <div className="md:pr-10 md:pt-5">
           <p className="text-3xl font-semibold md:text-4xl text-zinc-500">Lista de Vendedores</p>
         </div>
       </div>
       <div className="flex justify-between w-full">
-        <form className="w-3/12 p-2 bg-white border-2 border-solid rounded-full border-zinc-300 max-sm:hidden">
-          <div className="inline-block w-full">
-            <button className="w-1/12 pl-1">
-              <HiOutlineSearch className="w-6 text-zinc-500" />
-            </button>
+        <form className="w-50 p-2 bg-white border-2 border-solid rounded-full border-zinc-300 max-sm:hidden">
+          <div className="flex w-full items-center">
+            <HiOutlineSearch className="w-6 text-zinc-500" />
             <input type="text" className="w-11/12 pl-2 text-lg focus:outline-none" placeholder="Buscar vendedor" onChange={handleSearch} value={searchQuery}/>
           </div>
         </form>
