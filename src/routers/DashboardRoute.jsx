@@ -1,17 +1,15 @@
 import { Routes, Route } from 'react-router-dom';
-import Navbar from '../components/ui/Navbar';
-import SellerList from '../components/seller/SellerList';
-import SellerForm from '../components/seller/SellerForm';
-import SalesList from '../components/seller/SalesList';
-import ClientList from '../components/client/ClientList';
-import ClientForm from '../components/client/ClientForm';
-import ClientBalance from '../components/client/ClientBalance';
-// import GeneratePayment from '../components/seller/GeneratePayment';
-// import ValidatePayment from '../components/seller/ValidatePayment';
-import PurchaseList from '../components/client/PurchaseList';
+import Navbar from '../componentes/ui/Navbar';
+import SellerList from '../componentes/seller/SellerList';
+import SellerForm from '../componentes/seller/SellerForm';
+import SalesList from '../componentes/seller/SalesList';
+import ClientList from '../componentes/client/ClientList';
+import ClientForm from '../componentes/client/ClientForm';
+import ClientBalance from '../componentes/client/ClientBalance';
+import PurchaseList from '../componentes/client/PurchaseList';
 import { AuthContext } from '../context/AuthContext';
 import { useContext } from 'react';
-import PaymentScreen from '../components/seller/PaymentScreen';
+import PaymentScreen from '../componentes/seller/PaymentScreen';
 
 export const DashboardRoute = () => {
 

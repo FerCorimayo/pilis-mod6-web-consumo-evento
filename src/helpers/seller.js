@@ -10,6 +10,11 @@ export const listTransactionsSeller = async (id) =>{
     const body = await resp.json();
     return body;
 }
+export const listSurrenderSeller = async (id) =>{
+    const resp = await fetchWithToken(`surrender?business=${id}`);
+    const body = await resp.json();
+    return body;
+}
 export const listBusinessSeller = async (id) =>{
     const resp = await fetchWithToken(`business?user=${id}`);
     const body = await resp.json();

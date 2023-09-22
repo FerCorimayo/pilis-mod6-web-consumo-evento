@@ -2,22 +2,27 @@ import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { FaUser } from "react-icons/fa";
 import { AuthContext } from "../../context/AuthContext";
-import { useNavigate } from "react-router-dom";
 import { startLogin } from "../../helpers/auth";
+import Swal from 'sweetalert2';
 
 export const Login = () => {
 
   const { setCurrentUser } = useContext(AuthContext)
   const { register, handleSubmit, formState: { errors } } = useForm();
-  const navigate = useNavigate()
  
   const handleLoginSubmit = async (data) => {
     const user = await startLogin(data.email, data.password)
-    setCurrentUser(user)
+    if(user){
+      if(user.role=='client'){
+        Swal.fire('Error', 'Este usuario no es Vendedor', 'error');
+      }else{
+        setCurrentUser(user)
+      }
+    }
   }
 
   return (
-    <div className="mx-auto lg:flex">
+    <section className="mx-auto bg-white lg:flex">
       <div className="h-screen mx-auto px-auto sm:w-full md:w-10/12 lg:w-7/12 xl:w-7/12">
         <div className="w-11/12 pt-32 mx-auto md:pt-40 md:w-full xl:w-9/12">
           <h2 className="text-4xl font-bold text-center text-zinc-500 mb-9 sm:text-left">Iniciar Sesión</h2>
@@ -27,14 +32,13 @@ export const Login = () => {
             </div>
             <div className="w-full pl-2 mx-auto sm:w-full md:w-9/12 xl:w-8/12">
               <form
-                // onSubmit={handleSubmit(onSubmit)}
                 onSubmit={handleSubmit(handleLoginSubmit)}
                 className="w-full sm:w-full">
                 <div className="mb-4">
                   <label className="block pb-1 mb-1 text-lg font-medium text-zinc-500">Usuario</label>
                   <input
                     type="text"
-                    className="w-full border-solid border-2 border-zinc-300 rounded-xl focus:outline-none focus:border-[#007abe] focus:ring-1 focus:ring-[#007abe] p-2"
+                    className="w-full border-solid border-2 border-zinc-300 rounded-xl focus:outline-none focus:border-[#1D7D49] focus:ring-1 focus:ring-[#1D7D49] p-2"
                     placeholder="Nombre de usuario"
                     {...register('email', { required: true })}
                   />
@@ -44,7 +48,7 @@ export const Login = () => {
                   <label className="block pb-1 mb-1 text-lg font-medium text-zinc-500">Contraseña</label>
                   <input
                     type="password"
-                    className="w-full border-solid border-2 border-zinc-300 rounded-xl focus:outline-none focus:border-[#007abe] focus:ring-1 focus:ring-[#007abe] p-2"
+                    className="w-full border-solid border-2 border-zinc-300 rounded-xl focus:outline-none focus:border-[#1D7D49] focus:ring-1 focus:ring-[#1D7D49] p-2"
                     placeholder="Contraseña"
                     {...register('password', { required: true })}
                   />
@@ -52,7 +56,7 @@ export const Login = () => {
                 </div>
                 <button
                   type="submit"
-                  className="bg-[#007abe] hover:bg-[#005b8e] font-medium text-white mt-8 py-3 px-9 rounded-full mx-auto block"
+                  className="bg-[#1D7D49] hover:bg-[#1D7D49] font-medium text-white mt-8 py-3 px-9 rounded-full mx-auto block"
                 >
                   Ingresar
                 </button>
@@ -61,11 +65,11 @@ export const Login = () => {
           </div>
         </div>
       </div>
-      <div className="w-3/12 bg-[rgb(0,91,142)]">
+      <div className="w-3/12 bg-[rgb(29,125,73)]">
         <div className="items-center justify-center hidden h-full lg:flex">
-          {/* agregar un logo */}
+          <img className="w-auto h-52" src="/src/assets/log.png" alt="log-event" />
         </div>
       </div>
-    </div>
+    </section>
   );
 };

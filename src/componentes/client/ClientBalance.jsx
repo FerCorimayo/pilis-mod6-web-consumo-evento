@@ -32,13 +32,13 @@ const ClientBalance = () => {
     }).catch((error) => {console.error('Error:', error)});
   }
   return (
-    <div className="p-8 md:h-screen">
-      <form onSubmit={handleSubmit(onSubmit)} className="h-auto p-6 bg-white md:h-full rounded-xl">
+    <section className="md:w-6/12 p-4 mx-auto md:my-5 md:h-full bg-white rounded-2xl">
+      <form onSubmit={handleSubmit(onSubmit)} className="w-full">
         <div className="block md:flex">
-          <div className="h-auto bg-white md:w-7/12 md:h-full mx-auto">
+          <div className="h-auto bg-white w-full">
             <div className="flex justify-start pb-4 border-b-2 border-solid border-zinc-500">
               <FaChevronLeft className="w-5 h-auto mx-1 cursor-pointer text-zinc-500 hover:text-zinc-400" onClick={() => (navigate('/clientes'))} />
-              <p className="w-7/12 ml-2 text-3xl font-bold text-zinc-500">
+              <p className="ml-2 text-3xl font-bold text-zinc-500">
                 Saldo ({clientRegistered.user.fullname})
               </p>
             </div>
@@ -56,14 +56,14 @@ const ClientBalance = () => {
               />
               {errors.saldo && <span className="text-red-600"> *Este campo es requerido *Ingresar numeros mayor a 0</span>}
             </div>
-            <div className="flex justify-end md:mt-9">
+            <div className="flex justify-end mt-6">
               <button type="submit" className="bg-[#00be2f] hover:bg-[#00be09] font-medium text-white mt-8 py-3 px-9 rounded-full">Actualizar
               </button>
             </div>
           </div>
         </div>
       </form>
-    </div>
+    </section>
   )
 }
 export default ClientBalance

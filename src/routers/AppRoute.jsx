@@ -1,9 +1,5 @@
-import {
-    BrowserRouter,
-    Routes,
-    Route
-  } from "react-router-dom";
-import { Login } from "../components/auth/Login";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Login } from "../componentes/auth/Login";
 import { PrivateRoute } from "./PrivateRoute";
 import { DashboardRoute } from "./DashboardRoute";
 import { PublicRoute } from "./PublicRoute";

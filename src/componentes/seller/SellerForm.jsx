@@ -2,8 +2,7 @@ import { useForm } from "react-hook-form";
 import { createSeller, createBusiness, updateSeller, updateBusiness } from '../../helpers/seller'
 import { useState, useEffect } from 'react'
 import Swal from 'sweetalert2';
-import { useLocation } from "react-router-dom";
-import { useNavigate  } from 'react-router-dom';
+import { useLocation, useNavigate } from "react-router-dom";
 import { FaChevronLeft } from 'react-icons/fa'
 
 const SellerForm = () => {
@@ -88,13 +87,13 @@ const SellerForm = () => {
 	}
 
 	return (
-		<div className="p-8 md:h-screen">
-			<form className="h-auto p-6 bg-white md:h-full rounded-xl" onSubmit={handleSubmit(onSubmit)}>
+		<section className="p-4 bg-white md:w-11/12 rounded-2xl md:my-5 md:mx-auto">
+			<form className="w-full" onSubmit={handleSubmit(onSubmit)}>
 				<div className="block md:flex">
-					<div className="h-auto bg-white md:w-7/12 md:h-full ">
+					<div className="h-aut md:w-7/12 md:h-full ">
 						<div className="pb-4 border-b-2 border-solid border-zinc-500 flex justify-start">
 							<FaChevronLeft className="w-5 h-auto mx-1 cursor-pointer text-zinc-500 hover:text-zinc-400" onClick={()=>(navigate('/vendedores'))} />
-							<p className="w-7/12 ml-2 text-3xl font-bold text-zinc-500">
+							<p className="ml-2 text-3xl font-bold text-zinc-500">
 								{stateSeller ? 'Actualizar Vendedor':'Nuevo Vendedor'}
 							</p>
 						</div>
@@ -139,7 +138,7 @@ const SellerForm = () => {
 							{errors.password && <span className="text-red-600"> *Este campo es requerido</span>}
 						</div>
 					</div>
-					<div className="h-auto bg-white md:w-5/12">
+					<div className="h-auto md:w-5/12">
 						<div className="pb-4 mt-2 border-b-2 border-solid border-zinc-500 md:pl-3">
 							<p className="text-xl font-bold text-zinc-500 ">Información del Negocio</p>
 						</div>
@@ -176,7 +175,7 @@ const SellerForm = () => {
 						</div>
 					</div>
 				</div>
-				<div className="flex justify-end md:mt-9">
+				<div className="flex justify-end mt-6">
 					{stateSeller ?
 					<button type="submit" className="bg-[#00be2f] hover:bg-[#00be09] font-medium text-white mt-8 py-3 px-9 rounded-full">Actualizar</button>
 					:
@@ -184,7 +183,7 @@ const SellerForm = () => {
 					}
 				</div>
 			</form >
-		</div >
+		</section >
 	)
 };
 
