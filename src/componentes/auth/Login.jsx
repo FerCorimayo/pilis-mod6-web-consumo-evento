@@ -38,7 +38,7 @@ export const Login = () => {
                   <label className="block pb-1 mb-1 text-lg font-medium text-zinc-500">Usuario</label>
                   <input
                     type="text"
-                    className="w-full border-solid border-2 border-zinc-300 rounded-xl focus:outline-none focus:border-[#007abe] focus:ring-1 focus:ring-[#007abe] p-2"
+                    className="w-full border-solid border-2 border-zinc-300 rounded-xl focus:outline-none focus:border-[#1D7D49] focus:ring-1 focus:ring-[#1D7D49] p-2"
                     placeholder="Nombre de usuario"
                     {...register('email', { required: true })}
                   />
@@ -48,7 +48,7 @@ export const Login = () => {
                   <label className="block pb-1 mb-1 text-lg font-medium text-zinc-500">Contraseña</label>
                   <input
                     type="password"
-                    className="w-full border-solid border-2 border-zinc-300 rounded-xl focus:outline-none focus:border-[#007abe] focus:ring-1 focus:ring-[#007abe] p-2"
+                    className="w-full border-solid border-2 border-zinc-300 rounded-xl focus:outline-none focus:border-[#1D7D49] focus:ring-1 focus:ring-[#1D7D49] p-2"
                     placeholder="Contraseña"
                     {...register('password', { required: true })}
                   />
@@ -56,7 +56,7 @@ export const Login = () => {
                 </div>
                 <button
                   type="submit"
-                  className="bg-[#007abe] hover:bg-[#005b8e] font-medium text-white mt-8 py-3 px-9 rounded-full mx-auto block"
+                  className="bg-[#1D7D49] hover:bg-[#1D7D49] font-medium text-white mt-8 py-3 px-9 rounded-full mx-auto block"
                 >
                   Ingresar
                 </button>
@@ -65,9 +65,9 @@ export const Login = () => {
           </div>
         </div>
       </div>
-      <div className="w-3/12 bg-[rgb(0,91,142)]">
+      <div className="w-3/12 bg-[rgb(29,125,73)]">
         <div className="items-center justify-center hidden h-full lg:flex">
-          <img className="w-auto h-40" src="/src/assets/log.png" alt="log-event" />
+          <img className="w-auto h-52" src="/src/assets/log.png" alt="log-event" />
         </div>
       </div>
     </section>
